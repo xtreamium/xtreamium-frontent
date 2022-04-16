@@ -34,14 +34,6 @@ jobs:
             latest=true
 
       -
-        name: Show QEMU
-        run: echo ${{ steps.qemu.outputs.platforms }}
-
-      -
-        name: Show Labels
-        run: echo ${{ steps.meta.outputs.labels }}
-
-      -
         name: Show Tags
         run: echo ${{ steps.meta.outputs.tags }}
 
