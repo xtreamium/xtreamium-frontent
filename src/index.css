@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb,
+#aside::-webkit-scrollbar-thumb {
+  @apply rounded;
+}
+
+html {
+  @apply overflow-auto;
+  scrollbar-color: #9ca3af #e5e7eb;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-200;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-400;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-500;
+}
+
+html.dark {
+  scrollbar-color: #374151 #111827;
+}
+
+html.dark::-webkit-scrollbar-track {
+  @apply bg-gray-900;
+}
+
+html.dark::-webkit-scrollbar-thumb {
+  @apply bg-gray-700;
+}
+
+html.dark::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-600;
+}
