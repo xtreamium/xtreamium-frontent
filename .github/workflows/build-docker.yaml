@@ -24,7 +24,7 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: |
-            docker.io/fergalmoran/xtreamium-backend
+            docker.io/fergalmoran/xtreamium-frontend
             ghcr.io/${{ github.repository }}
           tags: |
             type=ref,event=branch
