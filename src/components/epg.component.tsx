@@ -72,7 +72,7 @@ const EPGComponent = ({ channelId }: IEPGComponentProps) => {
               <div className="has-tooltip">
                 <div className="font-semibold">{nowPlaying.title}</div>
                 {nowPlaying.getStartTime() && (
-                  <div>
+                  <div className="text-xs font-thin">
                     {dateToTimeString(new Date(nowPlaying.getStartTime()))} -
                     {(nowPlaying.getStopTime() - nowPlaying.getStartTime()) /
                       1000 /
