@@ -4,13 +4,18 @@
 @tailwind utilities;
 
 @layer components {
-  .timerow {
-    @apply font-semibold text-white bg-blue-500;
-  }
-  .timerow > td {
+  .timerow > td:not(:last-child) {
     @apply p-1 border-r-2 border-gray-50;
   }
+  .tooltip {
+    @apply absolute invisible;
+  }
+
+  .has-tooltip:hover .tooltip {
+    @apply z-50 visible;
+  }
 }
+
 html {
   scrollbar-width: thin;
 }

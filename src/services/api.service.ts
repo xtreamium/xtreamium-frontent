@@ -1,7 +1,8 @@
 import http from "./http.service";
-import { Channel } from "../models/channel";
-import { Stream } from "../models/stream";
+import { Channel, EPGListing } from "../models";
+import { Stream } from "../models";
 import axios from "axios";
+import { IEPGListingMap } from "../models/epg-listing";
 
 class ApiService {
   public validateCredentials = async (
@@ -33,7 +34,7 @@ class ApiService {
 
   public getStreams = async (channelId: string): Promise<Stream[]> => {
     const response = await http.get(`/streams/${channelId}`);
-    return response.data;
+    return (response.data as Stream[]).filter((r) => r.name === "BBC One FHD");
   };
 
   public getStreamUrl = async (
@@ -46,6 +47,14 @@ class ApiService {
     }
     return res?.data.url;
   };
+
+  public async getEPGForChannel(channelId: string): Promise<EPGListing[]> {
+    const response = await http.get(
+      `${import.meta.env.VITE_API_URL}/epg/${channelId}`
+    );
+
+    return response.data.map((d: any) => Object.assign(new EPGListing(), d));
+  }
 }
 
 export default new ApiService();

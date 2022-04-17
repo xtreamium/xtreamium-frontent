@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Channel } from "../../models/channel";
+import { Channel } from "../../models";
 import { ApiService } from "../../services";
 
 const SidebarContent = () => {

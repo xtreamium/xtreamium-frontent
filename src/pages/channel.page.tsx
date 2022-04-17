@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { useParams } from "react-router-dom";
 import { AiOutlinePlayCircle } from "react-icons/ai";
-import { Stream } from "../models/stream";
+import { Stream } from "../models";
 import { convertEpochToSpecificTimezone } from "../utils/date-utils";
 import { EPGComponent } from "../components";
 
@@ -145,13 +145,9 @@ const ChannelPage = () => {
               </TableCell>
             </TableRow>,
             <tr key={`${stream.num}-epg`}>
-              {true && (
-                <td colSpan={3} className="px-4 py-2 mt-8 border-4 shadow-md">
-                  <Suspense fallback={<h1>Loading epg</h1>}>
-                    <EPGComponent channelId={stream.epg_channel_id} />
-                  </Suspense>
-                </td>
-              )}
+              <Suspense fallback={<h1>Loading epg</h1>}>
+                <EPGComponent channelId={stream.epg_channel_id} />
+              </Suspense>
             </tr>,
           ])}
         </TableBody>
