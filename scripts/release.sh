@@ -12,7 +12,7 @@ if [ "$current_branch" != "develop" ]; then
 fi
 patchlevel=patch
 
-npm --tag-version-prefix="" version $patchlevel
+npm --tag-version-prefix="v" version $patchlevel
 PACKAGE_VERSION=$(cat package.json |
     grep version |
     head -1 |
