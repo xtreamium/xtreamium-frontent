@@ -65,12 +65,12 @@ const EPGComponent = ({ channelId }: IEPGComponentProps) => {
         programs.push(
           <td
             key={i}
-            className="h-10 text-xs break-words"
+            className="h-10 text-xs break-words hover:bg-indigo-400 hover:text-white"
             style={{ width: `${thisDurationPercentage}%` }}
           >
             <div className="inline-block break-words whitespace-pre-line">
               <div className="has-tooltip">
-                <div>{nowPlaying.title}</div>
+                <div className="font-semibold">{nowPlaying.title}</div>
                 {nowPlaying.getStartTime() && (
                   <div>
                     {dateToTimeString(new Date(nowPlaying.getStartTime()))} -
@@ -80,9 +80,9 @@ const EPGComponent = ({ channelId }: IEPGComponentProps) => {
                     m
                   </div>
                 )}
-                <span className="w-1/6 p-1 -mt-8 text-red-500 bg-gray-100 rounded shadow-lg tooltip">
+                {/* <span className="w-1/6 p-1 -mt-8 text-red-500 bg-gray-100 rounded shadow-lg tooltip">
                   {nowPlaying.desc}
-                </span>
+                </span> */}
               </div>
             </div>
           </td>
