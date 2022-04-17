@@ -1,3 +1,7 @@
+patchlevel="${1:-patch}"
+echo $patchlevel
+
+exit 0
 if [ -z "$(git status --porcelain)" ]; then 
     echo Repository is clean
 else 
@@ -10,7 +14,6 @@ if [ "$current_branch" != "develop" ]; then
     echo "You are not on develop branch, please switch to develop before releasing"
     exit 1
 fi
-patchlevel=patch
 
 npm --tag-version-prefix="v" version $patchlevel
 PACKAGE_VERSION=$(cat package.json |
