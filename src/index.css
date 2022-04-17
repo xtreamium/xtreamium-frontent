@@ -1,8 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .timerow {
+    @apply font-semibold text-white bg-blue-500;
+  }
+  .timerow > td {
+    @apply p-1 border-r-2 border-gray-50;
+  }
+}
 html {
   scrollbar-width: thin;
 }
