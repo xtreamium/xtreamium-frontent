@@ -51,11 +51,10 @@ const HomePage = () => {
               className="block p-6 text-sm whitespace-pre"
               dangerouslySetInnerHTML={{
                 __html:
-                  process.env.REACT_APP_MPV_DEFAULTS?.replace(" ", "<br />") ??
+                  import.meta.env.VITE_MPV_DEFAULTS?.replace(" ", "<br />") ??
                   "",
               }}
             ></div>
-
             Change them in your settings
           </span>
         </label>

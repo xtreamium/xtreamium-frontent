@@ -7,7 +7,7 @@ const PlayerPage = () => {
   const [streamUrl, setStreamUrl] = React.useState("");
   React.useEffect(() => {
     setStreamUrl(
-      `${process.env.REACT_APP_API_URL}/live/stream/${params.streamId}`
+      `${import.meta.env.VITE_API_URL}/live/stream/${params.streamId}`
     );
     console.log("player.page", "streamUrl", streamUrl);
   }, [params.streamId, streamUrl]);

@@ -47,7 +47,7 @@ const ChannelPage = () => {
         [""].concat(mpv_args.map(encodeURIComponent)).join("&mpv_args=");
       try {
         var response = await fetch(
-          `${process.env.REACT_APP_SERVER_URL}/${query}`
+          `${import.meta.env.VITE_PROXY_URL}/${query}`
         );
         console.log("channel.page", "playStream", response);
         if (response.status === 501) {
@@ -145,7 +145,7 @@ const ChannelPage = () => {
               </TableCell>
             </TableRow>,
             <tr key={`${stream.num}-epg`}>
-              {false && (
+              {true && (
                 <td colSpan={3} className="px-4 py-2 mt-8 border-4 shadow-md">
                   <Suspense fallback={<h1>Loading epg</h1>}>
                     <EPGComponent channelId={stream.epg_channel_id} />

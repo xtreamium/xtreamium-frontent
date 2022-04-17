@@ -10,7 +10,7 @@ class ApiService {
     password: string
   ): Promise<Boolean> => {
     const client = axios.create({
-      baseURL: process.env.REACT_APP_API_URL,
+      baseURL: import.meta.env.VITE_API_URL,
       headers: {
         "Content-type": "application/json",
         "x-xtream-server": server,
