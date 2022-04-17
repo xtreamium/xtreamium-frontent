@@ -1,3 +1,15 @@
+if [ -z "$(git status --porcelain)" ]; then 
+    echo Repository is clean
+else 
+    echo Repository is dirty, please commit before releasing
+    exit 1
+fi
+
+current_branch=$((git symbolic-ref HEAD 2>/dev/null || echo "(unnamed branch)")|cut -d/ -f3-)
+if [ "$current_branch" != "develop" ]; then
+    echo "You are not on develop branch, please switch to develop before releasing"
+    exit 1
+fi
 patchlevel=patch
 
 npm --tag-version-prefix="" version $patchlevel
