@@ -24,3 +24,5 @@ echo $PACKAGE_VERSION
 git checkout trunk
 git merge develop
 git push --tags origin trunk develop
+
+git checkout develop

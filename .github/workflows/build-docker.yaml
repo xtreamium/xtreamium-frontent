@@ -3,6 +3,8 @@ name: Docker Image
 on:
   push:
     branches: [trunk]
+    tags:
+      - "v*.*.*"
 
 jobs:
   build:
@@ -10,7 +12,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+     
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
         with:
@@ -71,5 +75,4 @@ jobs:
       #     prerelease: false
       - name: Release
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        
+
