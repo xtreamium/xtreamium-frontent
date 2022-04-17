@@ -20,3 +20,7 @@ PACKAGE_VERSION=$(cat package.json |
     sed 's/[",]//g' |
     tr -d '[[:space:]]')
 echo $PACKAGE_VERSION
+
+git checkout trunk
+git merge develop
+git push --tags origin trunk develop
