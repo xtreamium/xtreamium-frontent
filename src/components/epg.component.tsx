@@ -2,6 +2,8 @@ import React from "react";
 import { EPGListing } from "../models";
 import { ApiService } from "../services";
 import { dateToTimeString, roundDateDown } from "../utils/date-utils";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
 interface IEPGComponentProps {
   channelId: string;
 }
@@ -18,16 +20,6 @@ const EPGComponent = ({ channelId }: IEPGComponentProps) => {
   const _mapHeaderRows = () => {
     const currentTime = new Date();
     const startTime = roundDateDown(currentTime, 30 * 60 * 1000);
-    const currentProgram: EPGListing = epg[0] as EPGListing;
-
-    const currentProgramElapsed =
-      Math.round(startTime.getTime()) - currentProgram.getStartTime();
-
-    console.log(
-      "epg.component",
-      "_mapHeaderRows-currentProgramElapsed",
-      currentProgramElapsed
-    );
 
     let timebar = [];
     let programs = [];
@@ -68,8 +60,25 @@ const EPGComponent = ({ channelId }: IEPGComponentProps) => {
             className="h-10 text-xs break-words hover:bg-indigo-400 hover:text-white"
             style={{ width: `${thisDurationPercentage}%` }}
           >
-            <div className="inline-block break-words whitespace-pre-line">
-              <div className="has-tooltip">
+            <Tippy
+              placement="top"
+              theme="white"
+              content={
+                <div>
+                  <div id="one">
+                    <div className="bg-white shadow-l">
+                      <div className="px-3 py-2 font-bold text-gray-700 bg-gray-100">
+                        {nowPlaying.title}
+                      </div>
+                      <div className="px-3 py-3 text-gray-600">
+                        {nowPlaying.desc}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+            >
+              <div className="inline-block break-words whitespace-pre-line">
                 <div className="font-semibold">{nowPlaying.title}</div>
                 {nowPlaying.getStartTime() && (
                   <div className="text-xs font-thin">
@@ -80,11 +89,8 @@ const EPGComponent = ({ channelId }: IEPGComponentProps) => {
                     m
                   </div>
                 )}
-                {/* <span className="w-1/6 p-1 -mt-8 text-red-500 bg-gray-100 rounded shadow-lg tooltip">
-                  {nowPlaying.desc}
-                </span> */}
               </div>
-            </div>
+            </Tippy>
           </td>
         );
       }
@@ -92,7 +98,7 @@ const EPGComponent = ({ channelId }: IEPGComponentProps) => {
     }
 
     return (
-      <td colSpan={3}>
+      <td colSpan={3} className="">
         <table className="w-full table-fixed">
           <thead className="mb-7">
             <tr className="font-semibold text-white bg-gray-500 dark:bg-blue-500">
@@ -100,7 +106,7 @@ const EPGComponent = ({ channelId }: IEPGComponentProps) => {
             </tr>
           </thead>
         </table>
-        <table className="w-full ">
+        <table className="w-full text-gray-700 bg-indigo-300">
           <tbody className="w-full mt-2">
             <tr className="w-full">{programs}</tr>
           </tbody>

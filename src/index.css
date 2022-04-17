@@ -19,12 +19,31 @@
 html {
   scrollbar-width: thin;
 }
-
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
-
+.tippy-box[data-theme~="tomato"] {
+  background-color: white;
+}
+.tippy-box[data-theme~="tomato"][data-placement^="top"] > .tippy-arrow::before {
+  border-top-color: white;
+}
+.tippy-box[data-theme~="white"][data-placement^="bottom"]
+  > .tippy-arrow::before {
+  border-bottom-color: white;
+}
+.tippy-box[data-theme~="tomato"][data-placement^="left"]
+  > .tippy-arrow::before {
+  border-left-color: white;
+}
+.tippy-box[data-theme~="tomato"][data-placement^="right"]
+  > .tippy-arrow::before {
+  border-right-color: white;
+}
+.tippy-content {
+  padding: 0 !important;
+}
 ::-webkit-scrollbar-thumb,
 #aside::-webkit-scrollbar-thumb {
   @apply rounded;

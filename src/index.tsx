@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { SidebarProvider } from "./context";
 import { ToastContainer } from "react-toastify";
 import { ThemeProvider } from "./context/theme.context";
+
 import "react-toastify/dist/ReactToastify.css";
 
 ReactDOM.render(
