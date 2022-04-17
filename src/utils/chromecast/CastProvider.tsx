@@ -10,7 +10,7 @@ const wait = (time: number) =>
     setTimeout(res, time);
   });
 
-function CastProvider({ children }: { children: any }) {
+function CastProvider({ children }: { children: React.ReactChild }) {
   const [cast, setCast] = useState<{
     castReceiver?: CastReceiver;
     castSender?: any;

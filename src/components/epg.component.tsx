@@ -2,8 +2,9 @@ import React from "react";
 import { EPGListing } from "../models";
 import { ApiService } from "../services";
 import { dateToTimeString, roundDateDown } from "../utils/date-utils";
-import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
+import { EPGTooltipComponent } from "./widgets";
+import { toast } from "react-toastify";
 interface IEPGComponentProps {
   channelId: string;
 }
@@ -60,26 +61,15 @@ const EPGComponent = ({ channelId }: IEPGComponentProps) => {
             className="h-10 text-xs break-words hover:bg-indigo-400 hover:text-white"
             style={{ width: `${thisDurationPercentage}%` }}
           >
-            <Tippy
-              placement="top"
-              theme="white"
-              content={
-                <div>
-                  <div id="one">
-                    <div className="bg-white shadow-l">
-                      <div className="px-3 py-2 font-bold text-gray-700 bg-gray-100">
-                        {nowPlaying.title}
-                      </div>
-                      <div className="px-3 py-3 text-gray-600">
-                        {nowPlaying.desc}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              }
+            <EPGTooltipComponent
+              title={nowPlaying.getTitle()}
+              description={nowPlaying.getDescription()}
+              onClickRecord={() => {
+                toast.info("🦄 Coming soon!!! 🦄");
+              }}
             >
               <div className="inline-block break-words whitespace-pre-line">
-                <div className="font-semibold">{nowPlaying.title}</div>
+                <div className="font-semibold">{nowPlaying.getTitle()}</div>
                 {nowPlaying.getStartTime() && (
                   <div className="text-xs font-thin">
                     {dateToTimeString(new Date(nowPlaying.getStartTime()))} -
@@ -90,7 +80,7 @@ const EPGComponent = ({ channelId }: IEPGComponentProps) => {
                   </div>
                 )}
               </div>
-            </Tippy>
+            </EPGTooltipComponent>
           </td>
         );
       }

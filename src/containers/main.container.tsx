@@ -1,7 +1,7 @@
 import React from "react";
 
 interface IMainProps {
-  children: JSX.Element;
+  children: React.ReactChild;
 }
 const Main = ({ children }: IMainProps) => {
   return (

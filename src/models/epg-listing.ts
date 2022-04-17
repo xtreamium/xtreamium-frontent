@@ -11,21 +11,15 @@ export class EPGListing {
   channel!: string;
   private start!: number;
   private stop!: number;
-  title!: string[];
-  desc!: string[];
+  private title!: string[];
+  private desc!: string[];
 
-//   constructor({ channel, start, stop, title, desc }: IEPGListingMap) {
-//     debugger;
-//     this.channel = channel;
-//     this.start = start;
-//     this.stop = stop;
-//     this.title = title;
-//     this.desc = desc;
-//   }
-  public getStartTime(): number {
+  public getStartTime = (): number => {
     return convertUTCToLocal(new Date(this.start)).getTime();
-  }
-  public getStopTime(): number {
+  };
+  public getStopTime = (): number => {
     return convertUTCToLocal(new Date(this.stop)).getTime();
-  }
+  };
+  public getTitle = (): string => this.title.map((t) => t).join("\n");
+  public getDescription = (): string => this.desc.map((t) => t).join("\n");
 }
