@@ -1,5 +1,4 @@
 import { DateTime } from "luxon";
-import roundToNearestMinutes from "date-fns/roundToNearestMinutes";
 
 export const convertEpochToSpecificTimezone = (
   timeEpoch: number,
@@ -27,12 +26,7 @@ export const roundToNextHour = (date: Date): Date => {
 
   return date;
 };
-export const roundTimeAndFormat = (
-  date: Date,
-  roundToMinutes: number
-): Date => {
-  return roundToNearestMinutes(date, { nearestTo: roundToMinutes * -1 });
-};
+
 
 export const convertUTCToLocal = (date: Date): Date => {
   var localOffset = date.getTimezoneOffset() * 60000;
