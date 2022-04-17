@@ -34,7 +34,7 @@ class ApiService {
 
   public getStreams = async (channelId: string): Promise<Stream[]> => {
     const response = await http.get(`/streams/${channelId}`);
-    return (response.data as Stream[]).filter((r) => r.name === "BBC One FHD");
+    return response.data as Stream[]; //.filter((r) => r.name === "BBC One FHD");
   };
 
   public getStreamUrl = async (
