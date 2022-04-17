@@ -19,6 +19,6 @@ export default defineConfig(({ command, mode }) => {
       },
     };
   } else {
-    return {};
+    return { define: { "process.env": {} }, plugins: [react()] };
   }
 });
