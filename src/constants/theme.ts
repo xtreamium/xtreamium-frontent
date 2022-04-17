@@ -180,7 +180,7 @@ const defaultTheme = {
       large: "h-5 w-5",
       regular: "h-5 w-5",
       small: "h-3 w-3",
-      left: "mr-2 -ml-1",
+      left: "w-5 h-5",
       right: "ml-2 -mr-1",
     },
     primary: {
@@ -198,7 +198,7 @@ const defaultTheme = {
     link: {
       base: "text-gray-600 dark:text-gray-400 focus:outline-none border border-transparent",
       active:
-        "active:bg-transparent hover:bg-gray-100 focus:ring focus:ring-gray-300 dark:hover:bg-gray-500 dark:hover:text-gray-300 dark:hover:bg-opacity-10",
+        "active:bg-transparent hover:bg-gray-100 focus:ring-inset focus:ring-gray-300 dark:hover:bg-gray-500 dark:hover:text-gray-300 dark:hover:bg-opacity-10",
       disabled: "opacity-50 cursor-not-allowed",
     },
     // this is the button that lives inside the DropdownItem
