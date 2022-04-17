@@ -1,7 +1,9 @@
 patchlevel="${1:-patch}"
-echo $patchlevel
 
-exit 0
+if ! [[ "$patchlevel" =~ ^(major|minor|patch)$ ]]; then 
+    echo "Patchlevel must be one of major|minor|patch"
+    exit 0
+fi
 if [ -z "$(git status --porcelain)" ]; then 
     echo Repository is clean
 else 
