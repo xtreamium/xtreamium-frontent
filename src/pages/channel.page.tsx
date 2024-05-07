@@ -75,9 +75,14 @@ const ChannelPage = () => {
       const query = `play/${encodeURIComponent(url)}`;
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_PROXY_URL}/${query}`
+          `${import.meta.env.VITE_PROXY_URL}/${query}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "text/plain",
+            },
+          }
         );
-        console.log("channel.page", "playStream", response);
         if (response.status === 501) {
           toast(
             <>
