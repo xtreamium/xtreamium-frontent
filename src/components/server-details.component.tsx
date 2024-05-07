@@ -1,4 +1,3 @@
-import React from "react";
 import { Input, Label, Button, HelperText } from "./widgets";
 import { useForm } from "react-hook-form";
 import { BiRocket } from "react-icons/bi";
@@ -11,7 +10,11 @@ const ServerDetails = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: {
+    server: string;
+    username: string;
+    password: string;
+  }) => {
     console.log("server-details.component", "onSubmit", errors);
     const validated = await ApiService.validateCredentials(
       data.server,
@@ -51,7 +54,9 @@ const ServerDetails = () => {
             valid={!errors.server}
           />
           {errors.server && (
-            <HelperText valid={false}>{errors.server.message}</HelperText>
+            <HelperText valid={false}>
+              {errors.server.message as string}
+            </HelperText>
           )}
         </Label>
         <Label className="mt-4">
@@ -68,7 +73,9 @@ const ServerDetails = () => {
             valid={!errors.username}
           />
           {errors.username && (
-            <HelperText valid={false}>{errors.username.message}</HelperText>
+            <HelperText valid={false}>
+              {errors.username.message as string}
+            </HelperText>
           )}{" "}
         </Label>
         <Label className="mt-4">
@@ -85,7 +92,9 @@ const ServerDetails = () => {
             valid={!errors.password}
           />
           {errors.password && (
-            <HelperText valid={false}>{errors.password.message}</HelperText>
+            <HelperText valid={false}>
+              {errors.password.message as string}
+            </HelperText>
           )}
         </Label>
 

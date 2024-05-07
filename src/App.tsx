@@ -1,7 +1,7 @@
-import React from "react";
+import "./index.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Layout } from "./containers";
 import { OnboardingPage } from "./pages";
+import { Layout } from "./containers";
 
 function App() {
   return (

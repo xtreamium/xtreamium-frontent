@@ -6,9 +6,10 @@ import { ChannelPage, HomePage, PlayerPage } from "../pages";
 import ThemedSuspence from "../components/themed-suspence.component";
 import { SidebarContext } from "../context";
 import Sidebar from "../components/sidebar";
+import { ToastContainer } from "react-toastify";
 const Layout = () => {
   const { isSidebarOpen, closeSidebar } = React.useContext(SidebarContext);
-  let location = useLocation();
+  const location = useLocation();
 
   React.useEffect(() => {
     closeSidebar();

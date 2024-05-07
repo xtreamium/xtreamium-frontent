@@ -2,9 +2,6 @@ import React from "react";
 import { EPGListing } from "../models";
 import { ApiService } from "../services";
 import { dateToTimeString, roundDateDown } from "../utils/date-utils";
-import "tippy.js/dist/tippy.css";
-import { EPGTooltipComponent } from "./widgets";
-import { toast } from "react-toastify";
 interface IEPGComponentProps {
   channelId: string;
 }
@@ -22,8 +19,8 @@ const EPGComponent = ({ channelId }: IEPGComponentProps) => {
     const currentTime = new Date();
     const startTime = roundDateDown(currentTime, 30 * 60 * 1000);
 
-    let timebar = [];
-    let programs = [];
+    const timebar = [];
+    const programs = [];
     let currentStartRendering = 0;
     const cellDuration = 1000 * 60 * 30;
     const totalDuration = cellDuration * 9;
@@ -61,26 +58,7 @@ const EPGComponent = ({ channelId }: IEPGComponentProps) => {
             className="h-10 text-xs break-words hover:bg-indigo-400 hover:text-white"
             style={{ width: `${thisDurationPercentage}%` }}
           >
-            <EPGTooltipComponent
-              title={nowPlaying.getTitle()}
-              description={nowPlaying.getDescription()}
-              onClickRecord={() => {
-                toast.info("🦄 Coming soon!!! 🦄");
-              }}
-            >
-              <div className="inline-block break-words whitespace-pre-line">
-                <div className="font-semibold">{nowPlaying.getTitle()}</div>
-                {nowPlaying.getStartTime() && (
-                  <div className="text-xs font-thin">
-                    {dateToTimeString(new Date(nowPlaying.getStartTime()))} -
-                    {(nowPlaying.getStopTime() - nowPlaying.getStartTime()) /
-                      1000 /
-                      60}
-                    m
-                  </div>
-                )}
-              </div>
-            </EPGTooltipComponent>
+            {nowPlaying.getTitle()}
           </td>
         );
       }

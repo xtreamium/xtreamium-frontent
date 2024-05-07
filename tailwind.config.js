@@ -1,18 +1,8 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
-
-const config = {
-  darkMode: "class",
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {
-      fontFamily: {
-        "xtreamium": ["Raleway", "sans-serif"],
-      },
-    },
+    extend: {},
   },
   plugins: [],
-};
-
-module.exports = {
-  ...config,
 };

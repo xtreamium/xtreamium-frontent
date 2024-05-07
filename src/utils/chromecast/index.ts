@@ -1,6 +1,6 @@
-import CastButton from "./CastButton";
-import CastProvider from "./CastProvider";
-import useCast from "./useCast";
-import useMedia from "./useMedia";
+import CastButton from "./cast-button";
+import CastProvider from "./cast-provider";
+import useCast from "./use-cast";
+import useMedia from "./use-media";
 
 export { CastProvider, CastButton, useMedia, useCast };

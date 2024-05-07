@@ -2,14 +2,14 @@ import http from "./http.service";
 import { Channel, EPGListing } from "../models";
 import { Stream } from "../models";
 import axios from "axios";
-import { IEPGListingMap } from "../models/epg-listing";
 
 class ApiService {
   public validateCredentials = async (
     server: string,
     username: string,
     password: string
-  ): Promise<Boolean> => {
+  ): Promise<boolean> => {
+    console.log("api.service", "url", import.meta.env.VITE_API_URL);
     const client = axios.create({
       baseURL: import.meta.env.VITE_API_URL,
       headers: {
