@@ -19,7 +19,7 @@ import { Badge, Button, ImageWithFallback } from "../components/widgets";
 import { ApiService } from "../services";
 
 const ChannelPage = () => {
-  let params = useParams();
+  const params = useParams();
   const navigate = useNavigate();
   const [streams, setStreams] = React.useState<Stream[]>([]);
 
