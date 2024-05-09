@@ -4,8 +4,12 @@ import MobileSidebar from "./mobile-sidebar.component";
 const Sidebar = () => {
   return (
     <>
-      <DesktopSidebar />
-      <MobileSidebar />
+      <div className="hidden lg:block">
+        <DesktopSidebar />
+      </div>
+      <div className="block lg:hidden">
+        <MobileSidebar />
+      </div>
     </>
   );
 };
