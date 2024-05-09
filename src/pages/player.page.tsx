@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { ApiService } from "../services";
 import VideoJS from "../components/video.js.player";
+import HLSPlayer from "../components/hls-player.component";
 
 const PlayerPage = () => {
   const params = useParams();
@@ -44,8 +45,8 @@ const PlayerPage = () => {
           </span>
           <div className="w-96 h-96">
             Here is the player
-            <VideoJS options={videoJsOptions} />
-            {/* <HLSPlayer
+            {/* <VideoJS options={videoJsOptions} /> */}
+            <HLSPlayer
               src={streamUrl}
               hlsConfig={{
                 debug: true,
@@ -53,7 +54,7 @@ const PlayerPage = () => {
                 minAutoBitrate: 0,
                 lowLatencyMode: true,
               }}
-            /> */}
+            />
           </div>
         </div>
       )}

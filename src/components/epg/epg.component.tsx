@@ -1,7 +1,8 @@
 import React from "react";
-import { EPGListing } from "../models";
-import { ApiService } from "../services";
-import { dateToTimeString, roundDateDown } from "../utils/date-utils";
+import { EPGListing } from "../../models";
+import { ApiService } from "../../services";
+import { dateToTimeString, roundDateDown } from "../../utils/date-utils";
+import EpgItem from "./epg.item";
 interface IEPGComponentProps {
   channelId: string;
 }
@@ -58,7 +59,12 @@ const EPGComponent = ({ channelId }: IEPGComponentProps) => {
             className="h-10 text-xs break-words hover:bg-indigo-400 hover:text-white"
             style={{ width: `${thisDurationPercentage}%` }}
           >
-            {nowPlaying.getTitle()}
+            <EpgItem
+              title={nowPlaying.getTitle()}
+              startTime={nowPlaying.getStartTime()}
+              endTime={nowPlaying.getStopTime()}
+              description={nowPlaying.getDescription()}
+            />
           </td>
         );
       }
