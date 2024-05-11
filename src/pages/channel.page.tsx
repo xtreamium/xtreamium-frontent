@@ -135,79 +135,72 @@ const ChannelPage = () => {
     }
   };
   return (
-    <TableContainer className="mt-5 mb-8">
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableCell>Channel</TableCell>
-            <TableCell>Type</TableCell>
-            <TableCell></TableCell>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
+    <div className="overflow-x-auto">
+      <table className="table">
+        <tbody>
           {streams.map((stream: Stream) => [
-            <TableRow key={stream.num}>
-              <TableCell>
-                <div className="flex items-center text-sm">
-                  <ImageWithFallback
-                    className="hidden w-10 h-10 ml-2 mr-3 md:block"
-                    src={stream.stream_icon}
-                    alt="Stream icon"
-                    fallback="/images/unknown-stream.svg"
-                  />
-                  <div>
-                    <p className="font-semibold">{stream.name}</p>
-                    <p className="text-xs text-gray-600 dark:text-gray-400">
-                      Added: {convertEpochToSpecificTimezone(stream.added)}
-                    </p>
+            <>
+              <tr>
+                <td>
+                  <div className="flex items-center gap-3">
+                    <div className="avatar">
+                      <div className="w-12 h-12 mask mask-squircle">
+                        <ImageWithFallback
+                          className="hidden w-10 h-10 md:block"
+                          src={stream.stream_icon}
+                          alt="Stream icon"
+                          fallback="/images/unknown-stream.svg"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="font-bold">{stream.name}</div>
+                    </div>
                   </div>
-                </div>
-              </TableCell>
-              <TableCell>
-                <Badge type={`primary`}>{stream.stream_type}</Badge>
-              </TableCell>
-              <TableCell>
-                <div className="flex items-center space-x-1">
-                  <Button
-                    icon={FiCast}
-                    title="Cast stream to device"
-                    layout="link"
-                    aria-label="Edit"
-                    onClick={() => playStream(stream.stream_id)}
-                  ></Button>
-                  <Button
-                    icon={FiAirplay}
-                    title="Play to xtreamium local proxy"
-                    layout="link"
-                    aria-label="Edit"
-                    onClick={() => playStream(stream.stream_id)}
-                  ></Button>
-                  <Button
-                    icon={AiOutlinePlayCircle}
-                    title="Play stream in browser"
-                    layout="link"
-                    aria-label="Edit"
-                    onClick={() => playStreamInternal(stream.stream_id)}
-                  ></Button>
-                  <Button
-                    icon={AiOutlineCopy}
-                    title="Copy stream URL"
-                    layout="link"
-                    aria-label="Edit"
-                    onClick={() => copyStreamUrl(stream.stream_id)}
-                  ></Button>
-                </div>
-              </TableCell>
-            </TableRow>,
-            <tr key={`${stream.num}-epg`}>
-              <Suspense fallback={<h1>Loading epg</h1>}>
-                <EPGComponent channelId={stream.epg_channel_id} />
-              </Suspense>
-            </tr>,
+                </td>
+                <td>
+                  <div className="flex items-center space-x-1">
+                    <Button
+                      icon={FiCast}
+                      title="Cast stream to device"
+                      layout="link"
+                      aria-label="Edit"
+                      onClick={() => playStream(stream.stream_id)}
+                    ></Button>
+                    <Button
+                      icon={FiAirplay}
+                      title="Play to xtreamium local proxy"
+                      layout="link"
+                      aria-label="Edit"
+                      onClick={() => playStream(stream.stream_id)}
+                    ></Button>
+                    <Button
+                      icon={AiOutlinePlayCircle}
+                      title="Play stream in browser"
+                      layout="link"
+                      aria-label="Edit"
+                      onClick={() => playStreamInternal(stream.stream_id)}
+                    ></Button>
+                    <Button
+                      icon={AiOutlineCopy}
+                      title="Copy stream URL"
+                      layout="link"
+                      aria-label="Edit"
+                      onClick={() => copyStreamUrl(stream.stream_id)}
+                    ></Button>
+                  </div>
+                </td>
+              </tr>
+              <tr key={`${stream.num}-epg`}>
+                <Suspense fallback={<h1>Loading epg</h1>}>
+                  <EPGComponent channelId={stream.epg_channel_id} />
+                </Suspense>
+              </tr>
+            </>,
           ])}
-        </TableBody>
-      </Table>
-    </TableContainer>
+        </tbody>
+      </table>
+    </div>
   );
 };
 

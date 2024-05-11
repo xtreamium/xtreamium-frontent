@@ -34,7 +34,7 @@ const EpgItem: React.FC<EpgItemProps> = ({
                 setIsHover(false);
               }}
             >
-              {title}
+              <span className="line-clamp-1">{title}</span>
             </PopoverButton>
             <Transition
               show={isHover}
