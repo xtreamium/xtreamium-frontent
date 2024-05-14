@@ -1,17 +1,16 @@
-FROM oven/bun as builder
+FROM node:lts-buster as builder
 
 ARG RUN_MODE=production
 
 WORKDIR /app
 COPY package.json package.json
-COPY bun.lockb bun.lockb
 COPY .env.${RUN_MODE} .env
 
-RUN bun install
+RUN yarn install
 COPY . .
 
 ENV NODE_ENV=$RUN_MODE
-RUN bunx --bun vite build --mode $RUN_MODE
+RUN yarn build --mode $RUN_MODE
 
 FROM nginx:alpine
 ENV NODE_ENV=$RUN_MODE
