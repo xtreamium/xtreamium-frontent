@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Channel } from "../../models";
-import { ApiService } from "../../services";
+import { Channel } from "@/models";
+import { ApiService } from "@/services";
 
 const SidebarContent = () => {
   const [channels, setChannels] = React.useState<Channel[]>([]);

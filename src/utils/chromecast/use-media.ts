@@ -12,15 +12,15 @@ interface Media {
    * @function addMedia - function to add an media url to chromecast queue
    * @param src - this should be an media url acessible by chromecast
    */
-  addMedia: (src: string) => Promise<any>;
+  addMedia: (src: string) => Promise<unknown>;
   /**
    * @function play - function to play media in chromecast
    */
-  play: () => Promise<any>;
+  play: () => Promise<unknown>;
   /**
    * @function pause - function to pause media in chromecast
    */
-  pause: () => Promise<any>;
+  pause: () => Promise<unknown>;
   /**
    * this inidicate if is a media connected to chromecast
    */
@@ -28,21 +28,21 @@ interface Media {
   /**
    * @function next - function to jump to next video in chromecast queue
    */
-  next: () => Promise<any>;
+  next: () => Promise<unknown>;
   /**
    * @function prev - function to jump to prev video in chromecast queue
    */
-  prev: () => Promise<any>;
+  prev: () => Promise<unknown>;
   /**
    * @function to - function to jump to the time passed in seconds in chromecast playing video
    * @param seconds - time in seconds to jump to
    */
-  to: (seconds: number) => Promise<any>;
+  to: (seconds: number) => Promise<unknown>;
 }
 
 function useMedia() {
   const { session, castReceiver } = useContext(castContext);
-  const [media, setMedia] = useState<any>(null);
+  const [media, setMedia] = useState<unknown>(null);
   const [isMedia, setIsMedia] = useState(false);
   useEffect(() => {
     if (!session && isMedia) setIsMedia(false);
@@ -54,20 +54,18 @@ function useMedia() {
         if (!castReceiver || !session)
           return rej(new Error("An Error occurred"));
 
-        // @ts-ignore
         const mediaInfo = new castReceiver.media.MediaInfo(src);
-        // @ts-ignore
         const request = new castReceiver.media.LoadRequest(mediaInfo);
 
         request.autoplay = autoplay || true;
         session.loadMedia(
           request,
-          (media: any) => {
+          (media: unknown) => {
             setMedia(media);
             setIsMedia(true);
             res(media);
           },
-          (err: any) => rej(err)
+          (err: unknown) => rej(err)
         );
       }),
     [castReceiver, session]
@@ -75,10 +73,8 @@ function useMedia() {
 
   const addMedia = useCallback(
     async (src: string) => {
-      if (!castReceiver && !media) return;
-      // @ts-ignore
+      if (!castReceiver || !media) return;
       const mediaInfo = new castReceiver.media.MediaInfo(src);
-      // @ts-ignore
       const queueItem = new castReceiver.media.QueueItem(mediaInfo);
       await media.queueAppendItem(queueItem);
     },
@@ -109,7 +105,6 @@ function useMedia() {
     async (seconds: number) => {
       if (!media && !castReceiver) return;
 
-      // @ts-ignore
       const seek = new castReceiver.media.SeekRequest();
 
       seek.currentTime = seconds;

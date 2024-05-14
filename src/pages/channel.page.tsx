@@ -1,22 +1,12 @@
 import React, { Suspense } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { AiOutlineCopy, AiOutlinePlayCircle } from "react-icons/ai";
-import { FiAirplay, FiCast } from "react-icons/fi";
-import { Stream } from "../models";
-import { convertEpochToSpecificTimezone } from "../utils/date-utils";
-import { EPGComponent } from "../components";
+import { Stream } from "@/models";
+import { EPGComponent } from "@/components";
 
 import { toast } from "react-toastify";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHeader,
-  TableRow,
-} from "../components/widgets/table";
-import { Badge, Button, ImageWithFallback } from "../components/widgets";
-import { ApiService } from "../services";
+import { Button, ImageWithFallback } from "@/components/widgets";
+import { ApiService } from "@/services";
+import { Icons } from "@/components/icons";
 
 const ChannelPage = () => {
   const params = useParams();
@@ -161,28 +151,28 @@ const ChannelPage = () => {
                 <td>
                   <div className="flex items-center space-x-1">
                     <Button
-                      icon={FiCast}
+                      icon={Icons.cast}
                       title="Cast stream to device"
                       layout="link"
                       aria-label="Edit"
                       onClick={() => playStream(stream.stream_id)}
                     ></Button>
                     <Button
-                      icon={FiAirplay}
+                      icon={Icons.airplay}
                       title="Play to xtreamium local proxy"
                       layout="link"
                       aria-label="Edit"
                       onClick={() => playStream(stream.stream_id)}
                     ></Button>
                     <Button
-                      icon={AiOutlinePlayCircle}
+                      icon={Icons.play}
                       title="Play stream in browser"
                       layout="link"
                       aria-label="Edit"
                       onClick={() => playStreamInternal(stream.stream_id)}
                     ></Button>
                     <Button
-                      icon={AiOutlineCopy}
+                      icon={Icons.copy}
                       title="Copy stream URL"
                       layout="link"
                       aria-label="Edit"

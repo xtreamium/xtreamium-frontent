@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useRef } from "react";
 import classNames from "classnames";
 import FocusLock from "react-focus-lock";
-import { defaultTheme } from "../../constants";
+import { defaultTheme } from "@/constants";
 import Button, { ButtonProps } from "./button.component";
 import Transition from "./transition.component";
 

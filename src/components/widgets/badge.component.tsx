@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import classNames from "classnames";
-import { defaultTheme } from "../../constants";
+import { defaultTheme } from "@/constants";
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   type?: "success" | "danger" | "warning" | "neutral" | "primary";

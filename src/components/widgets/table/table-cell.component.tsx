@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import {defaultTheme} from '../../../constants';
+import {defaultTheme} from '@/constants';
 
 interface Props extends React.TdHTMLAttributes<HTMLTableCellElement> {}
 

@@ -1,6 +1,6 @@
 import { Transition } from "@headlessui/react";
 import React from "react";
-import { SidebarContext } from "../../context";
+import { SidebarContext } from "@/context";
 import SidebarContent from "./sidebar-content.component";
 
 const MobileSidebar = () => {

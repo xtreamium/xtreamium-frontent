@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { ApiService } from "../services";
-import VideoJS from "../components/video.js.player";
-import HLSPlayer from "../components/hls-player.component";
+import { ApiService } from "@/services";
+// import VideoJS from "@/components/video.js.player";
+import HLSPlayer from "@/components/hls-player.component";
 
 const PlayerPage = () => {
   const params = useParams();

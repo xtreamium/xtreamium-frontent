@@ -1,17 +1,12 @@
 import React from "react";
-import { VscDebug } from "react-icons/vsc";
-import { BsFillMoonStarsFill, BsFillSunFill, BsSearch } from "react-icons/bs";
-import { BiLogOutCircle, BiCog } from "react-icons/bi";
-import { IoMdPerson } from "react-icons/io";
-import { AiOutlineMenu, AiOutlineBell } from "react-icons/ai";
-import { SidebarContext, ThemeContext } from "../context";
 
 import { toast } from "react-toastify";
-import { Avatar, Badge, Input, Dropdown, DropdownItem } from "./widgets";
+import { Icons } from "./icons";
+import { SidebarContext } from "@/context";
+import ThemeChanger from "./theme-changer.component";
 
 const Header = () => {
   const { toggleSidebar } = React.useContext(SidebarContext);
-  const { theme, toggleTheme } = React.useContext(ThemeContext);
   const [isNotificationsMenuOpen, setIsNotificationsMenuOpen] =
     React.useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = React.useState(false);
@@ -57,7 +52,7 @@ const Header = () => {
         <div className="flex justify-center flex-1 lg:mr-32">
           <div className="relative w-full max-w-xl mr-6 ">
             <label className="flex items-center gap-2 input input-bordered">
-              <BsSearch className="w-4 h-4 opacity-70" aria-hidden="true" />
+              <Icons.search className="w-4 h-4 opacity-70" aria-hidden="true" />
               <input
                 type="text"
                 className="grow"
@@ -68,6 +63,7 @@ const Header = () => {
         </div>
       </div>
       <div className="flex-none">
+        <ThemeChanger />
         <button className="btn btn-square btn-ghost">
           <svg
             xmlns="http://www.w3.org/2000/svg"

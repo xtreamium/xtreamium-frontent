@@ -1,7 +1,7 @@
 import React from "react";
 import useCast from "./use-cast";
-import { FaChromecast } from "react-icons/fa";
-import { Button } from "../../components/widgets";
+import { Button } from "@/components/widgets";
+import { Icons } from "@/components/icons";
 
 interface ICastButtonProps {
   streamId: number;
@@ -25,7 +25,7 @@ const CastButton = ({ streamId, onPlay }: ICastButtonProps) => {
       aria-label="Delete"
       onClick={handleClick}
     >
-      <FaChromecast className="w-5 h-5" aria-hidden="true" />
+      <Icons.cast className="w-5 h-5" aria-hidden="true" />
     </Button>
   );
 };
