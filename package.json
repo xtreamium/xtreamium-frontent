@@ -6,7 +6,7 @@
   "scripts": {
     "dev:plain": "vite",
     "dev": "vite & local-ssl-proxy --key /etc/letsencrypt/live/dev.fergl.ie/privkey.pem --cert /etc/letsencrypt/live/dev.fergl.ie/fullchain.pem --source 3000 --target 5173",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },

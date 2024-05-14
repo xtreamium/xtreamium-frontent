@@ -1,4 +1,4 @@
-FROM node:lts-buster as builder
+FROM node:lts as builder
 
 ARG RUN_MODE=production
 
