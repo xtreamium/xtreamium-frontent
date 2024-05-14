@@ -15,6 +15,7 @@ fi
 
 # current_branch=$(git symbolic-ref HEAD 2>/dev/null || echo "(unnamed branch)" | cut -d/ -f3-)
 current_branch=$(git symbolic-ref HEAD 2>/dev/null || echo "(unnamed branch)" | cut -d/ -f3- | tr -d '[:space:]')
+echo "Current branch is $current_branch"
 if [[ "$current_branch" != "develop" ]]; then
   echo "You are not on develop branch, please switch to develop before releasing"
   exit 1
