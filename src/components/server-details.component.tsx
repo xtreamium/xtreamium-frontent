@@ -15,7 +15,13 @@ const ServerDetails = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<Inputs>({
+    defaultValues: {
+      server: import.meta.env.VITE_DEBUGGLES_SERVER,
+      username: import.meta.env.VITE_DEBUGGLES_USER,
+      password: import.meta.env.VITE_DEBUGGLES_PASS,
+    },
+  });
   const onSubmit: SubmitHandler<Inputs> = async (data: {
     server: string;
     username: string;

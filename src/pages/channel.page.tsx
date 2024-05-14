@@ -150,13 +150,15 @@ const ChannelPage = () => {
                 </td>
                 <td>
                   <div className="flex items-center space-x-1">
-                    <Button
-                      icon={Icons.cast}
-                      title="Cast stream to device"
-                      layout="link"
-                      aria-label="Edit"
-                      onClick={() => playStream(stream.stream_id)}
-                    ></Button>
+                    {import.meta.env.DEV && (
+                      <Button
+                        icon={Icons.cast}
+                        title="Cast stream to device"
+                        layout="link"
+                        aria-label="Edit"
+                        onClick={() => playStream(stream.stream_id)}
+                      ></Button>
+                    )}
                     <Button
                       icon={Icons.airplay}
                       title="Play to xtreamium local proxy"
@@ -164,13 +166,15 @@ const ChannelPage = () => {
                       aria-label="Edit"
                       onClick={() => playStream(stream.stream_id)}
                     ></Button>
-                    <Button
-                      icon={Icons.play}
-                      title="Play stream in browser"
-                      layout="link"
-                      aria-label="Edit"
-                      onClick={() => playStreamInternal(stream.stream_id)}
-                    ></Button>
+                    {import.meta.env.DEV && (
+                      <Button
+                        icon={Icons.play}
+                        title="Play stream in browser"
+                        layout="link"
+                        aria-label="Edit"
+                        onClick={() => playStreamInternal(stream.stream_id)}
+                      ></Button>
+                    )}
                     <Button
                       icon={Icons.copy}
                       title="Copy stream URL"

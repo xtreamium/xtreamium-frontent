@@ -6,7 +6,7 @@ import {
 } from "@headlessui/react";
 import React, { Fragment } from "react";
 import { Icons } from "../icons";
-import { convertUTCToLocal, dateToTimeString } from "@/utils/date-utils";
+import { dateToTimeString } from "@/utils/date-utils";
 
 type EpgItemProps = {
   title: string;
