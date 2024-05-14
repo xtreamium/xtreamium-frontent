@@ -1,21 +1,21 @@
 export default interface CastReceiver {
-  SessionRequest: new (...args: Array<any>) => any;
+  SessionRequest: new (...args: Array<unknown>) => unknown;
   media: {
-    MediaInfo: new (p: string) => any;
-    LoadRequest: new (p: string) => any;
-    [key: string]: any;
+    MediaInfo: new (p: string) => unknown;
+    LoadRequest: new (p: string) => unknown;
+    [key: string]: unknown;
   };
   Capability: {
     [key: string]: string;
   };
-  ApiConfig: new (...args: Array<any>) => any;
+  ApiConfig: new (...args: Array<unknown>) => unknown;
   initialize: (
-    ApiConfig: any,
-    initSucess: (e: any) => void,
-    initError: (e: any) => void
+    ApiConfig: unknown,
+    initSucess: (e: unknown) => void,
+    initError: (e: unknown) => void
   ) => void;
   requestSession: (
-    initSucess: (e: any) => void,
-    initError: (e: any) => void
+    initSucess: (e: unknown) => void,
+    initError: (e: unknown) => void
   ) => void;
 }

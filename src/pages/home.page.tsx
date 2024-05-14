@@ -1,5 +1,5 @@
 import React from "react";
-import { RiAlarmWarningLine } from "react-icons/ri";
+import { Icons } from "@/components/icons";
 const HomePage = () => {
   return (
     <div className="container grid px-6 mx-auto">
@@ -11,7 +11,7 @@ const HomePage = () => {
         href="https://github.com/estevanmaito/windmill-dashboard-react"
       >
         <div className="flex items-center">
-          <RiAlarmWarningLine className="w-5 h-5 mr-2" />
+          <Icons.alarm className="w-5 h-5 mr-2" />
           <span>
             Please follow the below instructions or else nothing will work!
           </span>

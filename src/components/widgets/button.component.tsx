@@ -1,9 +1,11 @@
 import classNames from "classnames";
-import React, { ReactNode, useContext } from "react";
-import { defaultTheme } from "../../constants";
+import React, { ReactNode } from "react";
+import { defaultTheme } from "@/constants";
+import { LucideIcon } from "lucide-react";
 
 type IconType =
   | string
+  | LucideIcon
   | React.FunctionComponent<{ className: string; "aria-hidden": boolean }>
   | React.ComponentClass<{ className: string; "aria-hidden": boolean }>;
 

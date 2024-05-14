@@ -1,8 +1,8 @@
 import React from "react";
-import { EPGListing } from "../../models";
-import { ApiService } from "../../services";
-import { dateToTimeString, roundDateDown } from "../../utils/date-utils";
-import EpgItem from "./epg.item";
+import { EPGListing } from "@/models";
+import { ApiService } from "@/services";
+import { dateToTimeString, roundDateDown } from "@/utils/date-utils";
+import EpgItem from "./epg-item";
 interface IEPGComponentProps {
   channelId: string;
 }
@@ -72,15 +72,13 @@ const EPGComponent = ({ channelId }: IEPGComponentProps) => {
     }
 
     return (
-      <td colSpan={3} className="">
+      <td colSpan={3} className="text-base-content ">
         <table className="w-full table-fixed">
           <thead className="mb-7">
-            <tr className="font-semibold text-white bg-gray-500 dark:bg-blue-500">
-              {timebar}
-            </tr>
+            <tr className="font-semibold bg-primary">{timebar}</tr>
           </thead>
         </table>
-        <table className="w-full text-gray-700 bg-indigo-300">
+        <table className="w-full text-base-100 bg-secondary">
           <tbody className="w-full mt-2">
             <tr className="w-full">{programs}</tr>
           </tbody>
@@ -88,7 +86,6 @@ const EPGComponent = ({ channelId }: IEPGComponentProps) => {
       </td>
     );
   };
-
   return epg && epg.length ? _mapHeaderRows() : null;
 };
 

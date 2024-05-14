@@ -1,16 +1,22 @@
 import { Input, Label, Button, HelperText } from "./widgets";
-import { useForm } from "react-hook-form";
-import { BiRocket } from "react-icons/bi";
-import { ApiService } from "../services";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { ApiService } from "@/services";
 import { toast } from "react-toastify";
+import { Icons } from "./icons";
+
+type Inputs = {
+  server: string;
+  username: string;
+  password: string;
+};
 
 const ServerDetails = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const onSubmit = async (data: {
+  } = useForm<Inputs>();
+  const onSubmit: SubmitHandler<Inputs> = async (data: {
     server: string;
     username: string;
     password: string;
@@ -103,7 +109,7 @@ const ServerDetails = () => {
           block
           type="submit"
           aria-label="Submit"
-          icon={BiRocket}
+          icon={Icons.rocket}
         >
           Let's go!
         </Button>

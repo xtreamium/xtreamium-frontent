@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import { defaultTheme } from "../../constants";
+import { defaultTheme } from "@/constants";
 
 export interface HelperTextProps extends React.HTMLAttributes<HTMLSpanElement> {
   /**

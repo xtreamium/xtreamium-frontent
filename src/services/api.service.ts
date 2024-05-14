@@ -1,6 +1,6 @@
 import http from "./http.service";
-import { Channel, EPGListing } from "../models";
-import { Stream } from "../models";
+import { Channel, EPGListing } from "@/models";
+import { Stream } from "@/models";
 import axios from "axios";
 
 class ApiService {
@@ -53,7 +53,9 @@ class ApiService {
       `${import.meta.env.VITE_API_URL}/epg/${channelId}`
     );
 
-    return response.data.map((d: any) => Object.assign(new EPGListing(), d));
+    return response.data.map((d: unknown) =>
+      Object.assign(new EPGListing(), d)
+    );
   }
 }
 
