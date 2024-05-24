@@ -1,9 +1,9 @@
 import React, { Suspense } from "react";
-import { useLocation, Routes, Route } from "react-router-dom";
+import { useLocation, Routes, Route, BrowserRouter } from "react-router-dom";
 import Header from "@/components/header.component";
 import Main from "./main.container";
 import { CategoryPage, HomePage, PlayerPage } from "@/pages";
-import ThemedSuspence from "@/components/themed-suspence.component";
+import ThemedSuspense from "@/components/themed-suspense.component";
 import { SidebarContext } from "@/context";
 import Sidebar from "@/components/sidebar";
 const Layout = () => {
@@ -22,11 +22,11 @@ const Layout = () => {
             <div className="flex flex-col h-full ">
               <Header />
               <Main>
-                <Suspense fallback={<ThemedSuspence />}>
+                <Suspense fallback={<ThemedSuspense />}>
                   <Routes>
+                    <Route path="/" element={<HomePage />} />
                     <Route path="category/:categoryId" element={<CategoryPage />} />
                     <Route path="play/:streamId" element={<PlayerPage />} />
-                    <Route path="*" element={<HomePage />} />
                   </Routes>
                 </Suspense>
               </Main>

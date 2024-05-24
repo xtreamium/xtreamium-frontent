@@ -6,20 +6,11 @@ import { ThemeProvider } from "next-themes";
 
 function App() {
   return (
-    <BrowserRouter>
-      <ThemeProvider defaultTheme="business" storageKey="__theme">
-        <Routes>
-          {localStorage.getItem("server") ? (
-            <>
-              <Route path="/onboarding" element={<OnboardingPage />} />
-              <Route path="/*" element={<Layout />} />
-            </>
-          ) : (
-            <Route path="/*" element={<OnboardingPage />} />
-          )}
-        </Routes>
-      </ThemeProvider>
-    </BrowserRouter>
+    <ThemeProvider defaultTheme="business" storageKey="__theme">
+      <BrowserRouter>
+        <Layout />
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

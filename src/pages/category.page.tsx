@@ -22,7 +22,7 @@ const CategoryPage = () => {
     };
 
     fetchChannels().catch(console.error);
-  }, [params.channelId]);
+  }, [params.categoryId]);
 
   const copyStreamUrl = async (streamId: number) => {
     try {
