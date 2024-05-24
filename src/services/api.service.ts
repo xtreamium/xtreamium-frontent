@@ -1,5 +1,5 @@
 import http from "./http.service";
-import { Channel, EPGListing } from "@/models";
+import { Category, EPGListing } from "@/models";
 import { Stream } from "@/models";
 import axios from "axios";
 
@@ -27,7 +27,7 @@ class ApiService {
     }
   };
 
-  public getCategories = async (): Promise<Channel[]> => {
+  public getCategories = async (): Promise<Category[]> => {
     const response = await http.get("/epg/categories");
     return response.data;
   };
@@ -47,7 +47,9 @@ class ApiService {
   };
 
   public async getEPGForChannel(channelId: string): Promise<EPGListing[]> {
-    const response = await http.get(`${import.meta.env.VITE_API_URL}/epg/listing/${channelId}`);
+    const response = await http.get(
+      `${import.meta.env.VITE_API_URL}/epg/listing/${channelId}`
+    );
     return response.data.map((d: unknown) => Object.assign(new EPGListing(), d));
   }
 }
