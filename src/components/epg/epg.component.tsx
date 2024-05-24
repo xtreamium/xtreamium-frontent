@@ -13,7 +13,9 @@ const EPGComponent = ({ channelId }: IEPGComponentProps) => {
       const response = await ApiService.getEPGForChannel(channelId);
       setEpg(response);
     };
-    fetchChannels();
+    if (channelId) {
+      fetchChannels();
+    }
   }, [channelId]);
 
   const _mapHeaderRows = () => {
@@ -29,9 +31,7 @@ const EPGComponent = ({ channelId }: IEPGComponentProps) => {
     for (let i = 0; i <= 8; i++) {
       //need to find how long the first program has been running for and
       //set the width of that to a multiple of the width of the other cells
-      const currentRenderingTime = new Date(
-        startTime.getTime() + cellDuration * i
-      );
+      const currentRenderingTime = new Date(startTime.getTime() + cellDuration * i);
       const time = dateToTimeString(
         currentRenderingTime //half hour segments
       );

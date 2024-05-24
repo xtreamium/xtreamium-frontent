@@ -8,15 +8,15 @@ import { Button, ImageWithFallback } from "@/components/widgets";
 import { ApiService } from "@/services";
 import { Icons } from "@/components/icons";
 
-const ChannelPage = () => {
+const CategoryPage = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [streams, setStreams] = React.useState<Stream[]>([]);
 
   React.useEffect(() => {
     const fetchChannels = async () => {
-      if (params.channelId) {
-        const data = await ApiService.getStreams(params.channelId);
+      if (params.categoryId) {
+        const data = await ApiService.getChannels(params.categoryId);
         setStreams(data);
       }
     };
@@ -32,9 +32,7 @@ const ChannelPage = () => {
         navigator.clipboard.writeText(url).then(() => {
           toast.success(
             <>
-              <div className="font-bold text-gray-800">
-                🙌 URL copied to clipboard
-              </div>
+              <div className="font-bold text-gray-800">🙌 URL copied to clipboard</div>
             </>,
             {
               position: "top-right",
@@ -57,31 +55,24 @@ const ChannelPage = () => {
     }
   };
   const playStreamInternal = async (streamId: number) => {
-    navigate(`/live/play/${streamId}`);
+    navigate(`/play/${streamId}`);
   };
   const playStream = async (streamId: number) => {
     const url = await ApiService.getStreamUrl(streamId);
     if (url) {
       const query = `play/${encodeURIComponent(url)}`;
       try {
-        const response = await fetch(
-          `${import.meta.env.VITE_PROXY_URL}/${query}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "text/plain",
-            },
-          }
-        );
+        const response = await fetch(`${import.meta.env.VITE_PROXY_URL}/${query}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "text/plain",
+          },
+        });
         if (response.status === 501) {
           toast(
             <>
-              <div className="font-bold text-gray-800">
-                🚫 Unable to play stream!
-              </div>
-              <div className="text-gray-700 font-sm">
-                Cannot find mpv installation.
-              </div>
+              <div className="font-bold text-gray-800">🚫 Unable to play stream!</div>
+              <div className="text-gray-700 font-sm">Cannot find mpv installation.</div>
               <a
                 className="font-bold text-indigo-600"
                 href="https://github.com/fergalmoran/xtreamium/#installmpv"
@@ -101,9 +92,7 @@ const ChannelPage = () => {
         console.log(e);
         toast(
           <>
-            <div className="font-bold text-gray-800">
-              🚫 Unable to play stream!
-            </div>
+            <div className="font-bold text-gray-800">🚫 Unable to play stream!</div>
             <div className="text-gray-700 font-sm">
               Make sure you've installed the local server.
             </div>
@@ -129,7 +118,7 @@ const ChannelPage = () => {
       <table className="table">
         <tbody>
           {streams.map((stream: Stream) => [
-            <>
+            <React.Fragment key={stream.name}>
               <tr>
                 <td>
                   <div className="flex items-center gap-3">
@@ -190,7 +179,7 @@ const ChannelPage = () => {
                   <EPGComponent channelId={stream.epg_channel_id} />
                 </Suspense>
               </tr>
-            </>,
+            </React.Fragment>,
           ])}
         </tbody>
       </table>
@@ -198,4 +187,4 @@ const ChannelPage = () => {
   );
 };
 
-export default ChannelPage;
+export default CategoryPage;

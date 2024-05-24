@@ -27,20 +27,18 @@ class ApiService {
     }
   };
 
-  public getChannels = async (): Promise<Channel[]> => {
-    const response = await http.get("/channels");
+  public getCategories = async (): Promise<Channel[]> => {
+    const response = await http.get("/epg/categories");
     return response.data;
   };
 
-  public getStreams = async (channelId: string): Promise<Stream[]> => {
-    const response = await http.get(`/streams/${channelId}`);
+  public getChannels = async (categoryId: string): Promise<Stream[]> => {
+    const response = await http.get(`/epg/channels/${categoryId}`);
     return response.data as Stream[]; //.filter((r) => r.name === "BBC One FHD");
   };
 
-  public getStreamUrl = async (
-    streamId: number
-  ): Promise<string | undefined> => {
-    const res = await http.get(`/live/stream/url/${streamId}`);
+  public getStreamUrl = async (streamId: number): Promise<string | undefined> => {
+    const res = await http.get(`/epg/channel/url/${streamId}`);
     if (res.status !== 200) {
       alert("Failed to get stream url");
       return;
@@ -49,13 +47,8 @@ class ApiService {
   };
 
   public async getEPGForChannel(channelId: string): Promise<EPGListing[]> {
-    const response = await http.get(
-      `${import.meta.env.VITE_API_URL}/epg/${channelId}`
-    );
-
-    return response.data.map((d: unknown) =>
-      Object.assign(new EPGListing(), d)
-    );
+    const response = await http.get(`${import.meta.env.VITE_API_URL}/epg/listing/${channelId}`);
+    return response.data.map((d: unknown) => Object.assign(new EPGListing(), d));
   }
 }
 

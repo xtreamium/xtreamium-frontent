@@ -1,16 +1,16 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Channel } from "@/models";
+import { Category } from "@/models";
 import { ApiService } from "@/services";
 
 const SidebarContent = () => {
-  const [channels, setChannels] = React.useState<Channel[]>([]);
+  const [categories, setCategory] = React.useState<Category[]>([]);
   //   const [filteredChannels, setFilteredChannels] = React.useState<Channel[]>([]);
   React.useEffect(() => {
     const fetchChannels = async () => {
-      const res = await ApiService.getChannels();
+      const res = await ApiService.getCategories();
       if (res) {
-        setChannels(res);
+        setCategory(res);
       }
     };
 
@@ -37,16 +37,16 @@ const SidebarContent = () => {
   //     }
   //   };
   return (
-    channels && (
+    categories && (
       <div className="py-4 text-base-content scroller">
         <a className="ml-6 text-lg font-bold " href="/">
           Xtreamium
         </a>
         <ul className="mt-6">
-          {channels.map((channel: Channel) => (
-            <li className="relative px-6 py-3" key={channel.category_id}>
+          {categories.map((category: Category) => (
+            <li className="relative px-6 py-3" key={category.category_id}>
               <NavLink
-                to={`/live/channel/${channel.category_id}`}
+                to={`/category/${category.category_id}`}
                 className={({ isActive }) =>
                   `inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-accent ${
                     isActive && "text-info"
@@ -62,7 +62,7 @@ const SidebarContent = () => {
                         ></span>
                       )}
                       {/* <Icon className="w-5 h-5" aria-hidden="true" icon={route.icon} /> */}
-                      <span className="ml-4">{channel.category_name}</span>
+                      <span className="ml-4">{category.category_name}</span>
                     </>
                   );
                 }}
