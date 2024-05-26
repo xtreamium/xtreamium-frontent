@@ -6,6 +6,7 @@ import { CategoryPage, HomePage, PlayerPage } from "@/pages";
 import ThemedSuspense from "@/components/themed-suspense.component";
 import { SidebarContext } from "@/context";
 import Sidebar from "@/components/sidebar";
+import LoginPage from "@/pages/login.page";
 const Layout = () => {
   const { isSidebarOpen, closeSidebar } = React.useContext(SidebarContext);
   const location = useLocation();
@@ -25,6 +26,7 @@ const Layout = () => {
                 <Suspense fallback={<ThemedSuspense />}>
                   <Routes>
                     <Route path="/" element={<HomePage />} />
+                    <Route path="/login" element={<LoginPage />} />
                     <Route path="category/:categoryId" element={<CategoryPage />} />
                     <Route path="play/:streamId" element={<PlayerPage />} />
                   </Routes>

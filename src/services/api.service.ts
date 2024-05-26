@@ -1,7 +1,7 @@
 import http from "./http.service";
 import { Category, EPGListing } from "@/models";
 import { Stream } from "@/models";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 class ApiService {
   public validateCredentials = async (
@@ -26,7 +26,19 @@ class ApiService {
       return false;
     }
   };
+  public login = async (email: string, password: string): Promise<AxiosResponse> => {
+    const params = new URLSearchParams();
+    params.append("grant_type", "");
+    params.append("username", email);
+    params.append("password", password);
 
+    const response = await http.post("/user/token", params.toString(), {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+    return response;
+  };
   public getCategories = async (): Promise<Category[]> => {
     const response = await http.get("/epg/categories");
     return response.data;
