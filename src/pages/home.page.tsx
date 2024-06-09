@@ -9,7 +9,11 @@ const HomePage = () => {
     return <div>Loading...</div>;
   }
   if (!query.isError && query.data && query.data.length > 0) {
-    return <div>We have servers</div>;
+    return query.data.map((server) => (
+      <div key={server.id}>
+        <div>{server.name}</div>
+      </div>
+    ));
   }
   return (
     <div className="container grid px-6 mx-auto">
