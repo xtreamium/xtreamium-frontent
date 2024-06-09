@@ -9,6 +9,7 @@ type LoginPageProps = {
 };
 
 const LoginPage: React.FC = () => {
+
   const {
     register,
     handleSubmit,

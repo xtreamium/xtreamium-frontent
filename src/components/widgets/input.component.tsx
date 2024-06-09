@@ -7,7 +7,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(function Input(
   props,
   ref
 ) {
-  return <input type={props.type} ref={ref} className="w-full max-w-xs input" />;
+  return <input type={props.type} ref={ref} className="grow" {...props} />;
 });
 
 export default Input;

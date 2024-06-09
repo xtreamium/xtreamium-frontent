@@ -1,5 +1,6 @@
 import {
   CirclePlus,
+  CircleX,
   BellDot,
   ChevronDown,
   ChevronUp,
@@ -30,6 +31,7 @@ export const Icons = {
   chevronUp: ChevronUp,
   chevronDown: ChevronDown,
   colorSwatch: SwatchBook,
+  delete: CircleX,
   copy: Copy,
   eye: Eye,
   key: Key,

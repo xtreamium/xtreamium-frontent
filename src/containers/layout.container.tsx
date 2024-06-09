@@ -9,6 +9,7 @@ import Sidebar from "@/components/sidebar";
 import LoginPage from "@/pages/login.page";
 import { ApiService } from "@/services";
 import { useQuery } from "@tanstack/react-query";
+import AddServerPage from "@/pages/add-server.page";
 const Layout = () => {
   const query = useQuery({ queryKey: ["user"], queryFn: ApiService.getCurrentUser });
   const { isSidebarOpen, closeSidebar } = React.useContext(SidebarContext);
@@ -37,6 +38,7 @@ const Layout = () => {
                 <Suspense fallback={<ThemedSuspense />}>
                   <Routes>
                     <Route path="/" element={<HomePage />} />
+                    <Route path="/server/add" element={<AddServerPage />} />
                     <Route path="/dashboard" element={<HomePage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="category/:categoryId" element={<CategoryPage />} />

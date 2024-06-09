@@ -1,9 +1,7 @@
 import React from "react";
 import { Icons } from "../icons";
-import { useAuth } from "@/context/auth.context";
 
 const ProfileDropdown: React.FC = () => {
-  const auth = useAuth();
   return (
     <div className="dropdown dropdown-bottom dropdown-end">
       <label

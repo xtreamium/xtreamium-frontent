@@ -5,31 +5,9 @@ import axios, { AxiosResponse } from "axios";
 import { User } from "@/models";
 import { TOKEN_KEY } from "@/constants/storage";
 import { QueryKey } from "@tanstack/react-query";
+import { StatusCodes } from "http-status-codes";
 
 class ApiService {
-  public validateCredentials = async (
-    server: string,
-    username: string,
-    password: string
-  ): Promise<boolean> => {
-    console.log("api.service", "url", import.meta.env.VITE_API_URL);
-    const client = axios.create({
-      baseURL: import.meta.env.VITE_API_URL,
-      headers: {
-        "Content-type": "application/json",
-        "x-xtream-server": server,
-        "x-xtream-username": username,
-        "x-xtream-password": password,
-      },
-    });
-    try {
-      const res = await client.get("/validate");
-      return res.status === 200;
-    } catch {
-      return false;
-    }
-  };
-
   private _getRequestOptions = () => {
     return {
       method: "GET",
@@ -147,6 +125,34 @@ class ApiService {
     );
     return response.data.map((d: unknown) => Object.assign(new EPGListing(), d));
   }
+  public deleteServer = async (serverId: number): Promise<boolean> => {
+    const options = this._getRequestOptions();
+    const response = await http.delete(`user/server/${serverId}`, options);
+    return response.status === StatusCodes.OK;
+  };
+  public addServer = async (
+    name: string,
+    server: string,
+    username: string,
+    password: string,
+    epgUrl: string
+  ): Promise<boolean> => {
+    console.log("api.service", "url", import.meta.env.VITE_API_URL);
+    const options = this._getRequestOptions();
+    const response = await http.post(
+      "user/server",
+      {
+        name: name,
+        url: server,
+        username: username,
+        password: password,
+        epg_url: epgUrl,
+      },
+      options
+    );
+
+    return response.data;
+  };
 }
 
 export default new ApiService();
