@@ -1,5 +1,8 @@
 import {
+  CirclePlus,
   BellDot,
+  ChevronDown,
+  ChevronUp,
   LucideIcon,
   Eye,
   Mail,
@@ -19,10 +22,13 @@ import {
 
 export type Icon = LucideIcon;
 export const Icons = {
+  add: CirclePlus,
   airplay: Airplay,
   alarm: BellDot,
   avatar: PersonStanding,
   cast: Cast,
+  chevronUp: ChevronUp,
+  chevronDown: ChevronDown,
   colorSwatch: SwatchBook,
   copy: Copy,
   eye: Eye,

@@ -5,8 +5,11 @@ import { Icons } from "./icons";
 import { SidebarContext } from "@/context";
 import ThemeChanger from "./theme-changer.component";
 import ProfileDropdown from "./widgets/profile-dropdown.component";
+import ServerSelectorComponent from "./widgets/server-selecter.component";
+import {User} from '@/models';
+type HeaderProps = { user: User };
 
-const Header = () => {
+const Header: React.FC<HeaderProps> = ({ user }) => {
   const { toggleSidebar } = React.useContext(SidebarContext);
   const [isNotificationsMenuOpen, setIsNotificationsMenuOpen] = React.useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = React.useState(false);
@@ -42,6 +45,7 @@ const Header = () => {
         </div>
       </div>
       <div className="flex-none mx-2">
+        <ServerSelectorComponent user={user} />
         <ThemeChanger />
         <ProfileDropdown />
       </div>

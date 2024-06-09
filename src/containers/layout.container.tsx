@@ -32,7 +32,7 @@ const Layout = () => {
           {query.data.servers && <Sidebar />}
           <div className="w-full h-full max-w-full overflow-auto main-wrapper">
             <div className="flex flex-col h-full ">
-              <Header />
+              <Header user={query.data} />
               <Main>
                 <Suspense fallback={<ThemedSuspense />}>
                   <Routes>
