@@ -1,16 +1,17 @@
 import React from "react";
-import { EPGListing } from "@/models";
+import { EPGListing, Server } from "@/models";
 import { ApiService } from "@/services";
 import { dateToTimeString, roundDateDown } from "@/utils/date-utils";
 import EpgItem from "./epg-item";
 interface IEPGComponentProps {
+  server: Server;
   channelId: string;
 }
-const EPGComponent = ({ channelId }: IEPGComponentProps) => {
+const EPGComponent = ({ server, channelId }: IEPGComponentProps) => {
   const [epg, setEpg] = React.useState<EPGListing[]>([]);
   React.useEffect(() => {
     const fetchChannels = async () => {
-      const response = await ApiService.getEPGForChannel(channelId);
+      const response = await ApiService.getEPGForChannel(server, channelId);
       setEpg(response);
     };
     if (channelId) {

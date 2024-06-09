@@ -4,7 +4,7 @@ import { Stream } from "@/models";
 import axios, { AxiosResponse } from "axios";
 import { User } from "@/models";
 import { TOKEN_KEY } from "@/constants/storage";
-import { get } from "node_modules/axios/index.d.cts";
+import { QueryKey } from "@tanstack/react-query";
 
 class ApiService {
   public validateCredentials = async (
@@ -30,7 +30,7 @@ class ApiService {
     }
   };
 
-  private getHeaders = () => {
+  private _getRequestOptions = () => {
     return {
       method: "GET",
       headers: {
@@ -67,26 +67,60 @@ class ApiService {
   };
 
   public getCurrentUser = async (): Promise<User> => {
-    const response = await http.get("/user/me", this.getHeaders());
+    const response = await http.get("/user/me", this._getRequestOptions());
     return response.data as User;
   };
   public getUserServers = async (): Promise<Server[]> => {
-    const response = await http.get("/user/servers", this.getHeaders());
+    const response = await http.get("/user/servers", this._getRequestOptions());
     return response.data as Server[];
   };
 
-  public getCategories = async (): Promise<Category[]> => {
-    const response = await http.get("/epg/categories");
+  public getCategories = async (server: Server): Promise<Category[]> => {
+    const options = this._getRequestOptions();
+    const response = await http.get(`/epg/categories`, {
+      ...options,
+      headers: {
+        ...options.headers,
+        "x-xtream-server": server.url,
+        "x-xtream-username": server.username,
+        "x-xtream-password": server.password,
+      },
+    });
     return response.data;
   };
 
-  public getChannels = async (categoryId: string): Promise<Stream[]> => {
-    const response = await http.get(`/epg/channels/${categoryId}`);
+  public getChannels = async (
+    server: Server,
+    categoryId: string
+  ): Promise<Stream[]> => {
+    const options = this._getRequestOptions();
+
+    const response = await http.get(`/epg/channels/${categoryId}`, {
+      ...options,
+      headers: {
+        ...options.headers,
+        "x-xtream-server": server.url,
+        "x-xtream-username": server.username,
+        "x-xtream-password": server.password,
+      },
+    });
     return response.data as Stream[]; //.filter((r) => r.name === "BBC One FHD");
   };
 
-  public getStreamUrl = async (streamId: number): Promise<string | undefined> => {
-    const res = await http.get(`/epg/channel/url/${streamId}`);
+  public getStreamUrl = async (
+    server: Server,
+    streamId: number
+  ): Promise<string | undefined> => {
+    const options = this._getRequestOptions();
+    const res = await http.get(`/epg/channel/url/${streamId}`, {
+      ...options,
+      headers: {
+        ...options.headers,
+        "x-xtream-server": server.url,
+        "x-xtream-username": server.username,
+        "x-xtream-password": server.password,
+      },
+    });
     if (res.status !== 200) {
       alert("Failed to get stream url");
       return;
@@ -94,9 +128,22 @@ class ApiService {
     return res?.data.url;
   };
 
-  public async getEPGForChannel(channelId: string): Promise<EPGListing[]> {
+  public async getEPGForChannel(
+    server: Server,
+    channelId: string
+  ): Promise<EPGListing[]> {
+    const options = this._getRequestOptions();
     const response = await http.get(
-      `${import.meta.env.VITE_API_URL}/epg/listing/${channelId}`
+      `${import.meta.env.VITE_API_URL}/epg/listing/${channelId}`,
+      {
+        ...options,
+        headers: {
+          ...options.headers,
+          "x-xtream-server": server.url,
+          "x-xtream-username": server.username,
+          "x-xtream-password": server.password,
+        },
+      }
     );
     return response.data.map((d: unknown) => Object.assign(new EPGListing(), d));
   }

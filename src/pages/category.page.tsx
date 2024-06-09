@@ -7,26 +7,37 @@ import { toast } from "react-toastify";
 import { Button, ImageWithFallback } from "@/components/widgets";
 import { ApiService } from "@/services";
 import { Icons } from "@/components/icons";
+import { useQuery } from "@tanstack/react-query";
+import Loading from "@/components/widgets/loading.component";
+import useServerStore from "@/services/state/server.state";
 
 const CategoryPage = () => {
+  const { selectedServer } = useServerStore();
+  const userQuery = useQuery({
+    queryKey: ["user"],
+    queryFn: ApiService.getCurrentUser,
+  });
+
+  const server = userQuery.data?.servers.find((s) => s.id === selectedServer);
+
+  if (!server) {
+    return <div className="text-base-content">No Server Selected</div>;
+  }
+
   const params = useParams();
   const navigate = useNavigate();
-  const [streams, setStreams] = React.useState<Stream[]>([]);
+  const channelQuery = useQuery({
+    queryKey: [`channels_${params.categoryId}`],
+    queryFn: () => ApiService.getChannels(server, params.categoryId!!),
+  });
 
-  React.useEffect(() => {
-    const fetchChannels = async () => {
-      if (params.categoryId) {
-        const data = await ApiService.getChannels(params.categoryId);
-        setStreams(data);
-      }
-    };
-
-    fetchChannels().catch(console.error);
-  }, [params.categoryId]);
+  if (channelQuery.isLoading) {
+    return <Loading />;
+  }
 
   const copyStreamUrl = async (streamId: number) => {
     try {
-      const url = await ApiService.getStreamUrl(streamId);
+      const url = await ApiService.getStreamUrl(server, streamId);
       console.log("channel.page", "copyStreamUrl", url);
       if (url) {
         navigator.clipboard.writeText(url).then(() => {
@@ -58,7 +69,7 @@ const CategoryPage = () => {
     navigate(`/play/${streamId}`);
   };
   const playStream = async (streamId: number) => {
-    const url = await ApiService.getStreamUrl(streamId);
+    const url = await ApiService.getStreamUrl(server, streamId);
     if (url) {
       const query = `play/${encodeURIComponent(url)}`;
       try {
@@ -113,11 +124,14 @@ const CategoryPage = () => {
       }
     }
   };
+  if (!channelQuery.data) {
+    return <div>No data</div>;
+  }
   return (
     <div className="overflow-x-auto">
       <table className="table">
         <tbody>
-          {streams.map((stream: Stream) => [
+          {channelQuery.data.map((stream: Stream) => [
             <React.Fragment key={stream.name}>
               <tr>
                 <td>
@@ -176,7 +190,7 @@ const CategoryPage = () => {
               </tr>
               <tr key={`${stream.num}-epg`}>
                 <Suspense fallback={<h1>Loading epg</h1>}>
-                  <EPGComponent channelId={stream.epg_channel_id} />
+                  <EPGComponent server={server} channelId={stream.epg_channel_id} />
                 </Suspense>
               </tr>
             </React.Fragment>,

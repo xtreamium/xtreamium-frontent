@@ -29,7 +29,7 @@ const Layout = () => {
     <div className="bg-base-100">
       <div className="size-full">
         <div className="flex overflow-hidden">
-          {query.data.servers && <Sidebar />}
+          {query.data.servers && <Sidebar user={query.data} />}
           <div className="w-full h-full max-w-full overflow-auto main-wrapper">
             <div className="flex flex-col h-full ">
               <Header user={query.data} />

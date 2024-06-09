@@ -1,21 +1,29 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Category } from "@/models";
+import { Category, User } from "@/models";
 import { ApiService } from "@/services";
+import { useQuery } from "@tanstack/react-query";
+import useServerStore from "@/services/state/server.state";
+import Loading from "@/components/widgets/loading.component";
+type SidebarContentProps = {
+  user: User;
+};
+const SidebarContent: React.FC<SidebarContentProps> = ({ user }) => {
+  const { selectedServer } = useServerStore();
+  const server = user.servers.find((s) => s.id === selectedServer);
 
-const SidebarContent = () => {
-  const [categories, setCategory] = React.useState<Category[]>([]);
-  //   const [filteredChannels, setFilteredChannels] = React.useState<Channel[]>([]);
-  React.useEffect(() => {
-    const fetchChannels = async () => {
-      const res = await ApiService.getCategories();
-      if (res) {
-        setCategory(res);
-      }
-    };
+  if (!server) {
+    return <div className="text-base-content">No Server Selected</div>;
+  }
 
-    fetchChannels();
-  }, []);
+  const query = useQuery({
+    queryKey: ["categories"],
+    queryFn: () => ApiService.getCategories(server),
+  });
+
+  if (query.isLoading) {
+    return <Loading />;
+  }
   //   const _searchChannels = ($event: React.ChangeEvent<HTMLInputElement>) => {
   //     const searchString = $event.target.value;
   //     if (searchString) {
@@ -37,13 +45,13 @@ const SidebarContent = () => {
   //     }
   //   };
   return (
-    categories && (
+    query.data && (
       <div className="py-4 text-base-content scroller">
         <a className="ml-6 text-lg font-bold " href="/">
-          Xtreamium
+          Categories
         </a>
         <ul className="mt-6">
-          {categories.map((category: Category) => (
+          {query.data.map((category: Category) => (
             <li className="relative px-6 py-3" key={category.category_id}>
               <NavLink
                 to={`/category/${category.category_id}`}

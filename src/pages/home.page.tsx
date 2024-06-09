@@ -1,12 +1,13 @@
 import { Icons } from "@/components/icons";
 import { ApiService } from "@/services";
 import { useQuery } from "@tanstack/react-query";
+import Loading from "@/components/widgets/loading.component";
 
 const HomePage = () => {
   const query = useQuery({ queryKey: ["servers"], queryFn: ApiService.getUserServers });
 
   if (query.isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
   if (!query.isError && query.data && query.data.length > 0) {
     return query.data.map((server) => (
