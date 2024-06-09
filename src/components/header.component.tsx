@@ -4,11 +4,11 @@ import { toast } from "react-toastify";
 import { Icons } from "./icons";
 import { SidebarContext } from "@/context";
 import ThemeChanger from "./theme-changer.component";
+import ProfileDropdown from "./widgets/profile-dropdown.component";
 
 const Header = () => {
   const { toggleSidebar } = React.useContext(SidebarContext);
-  const [isNotificationsMenuOpen, setIsNotificationsMenuOpen] =
-    React.useState(false);
+  const [isNotificationsMenuOpen, setIsNotificationsMenuOpen] = React.useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = React.useState(false);
 
   const _debuggles = () => {
@@ -31,54 +31,19 @@ const Header = () => {
   };
   return (
     <div className="w-full navbar">
-      <div className="flex-none">
-        <button className="btn btn-square btn-ghost">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            className="inline-block w-5 h-5 stroke-current"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            ></path>
-          </svg>
-        </button>
-      </div>
       <div className="flex-1">
         <div className="flex justify-center flex-1 lg:mr-32">
           <div className="relative w-full max-w-xl mr-6 ">
             <label className="flex items-center gap-2 input input-bordered">
               <Icons.search className="w-4 h-4 opacity-70" aria-hidden="true" />
-              <input
-                type="text"
-                className="grow"
-                placeholder="Search for programs"
-              />
+              <input type="text" className="grow" placeholder="Search for programs" />
             </label>
           </div>
         </div>
       </div>
-      <div className="flex-none">
+      <div className="flex-none mx-2">
         <ThemeChanger />
-        <button className="btn btn-square btn-ghost">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            className="inline-block w-5 h-5 stroke-current"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-            ></path>
-          </svg>
-        </button>
+        <ProfileDropdown />
       </div>
     </div>
     // <header className="z-40 py-4 bg-white shadow-bottom dark:bg-gray-800">
