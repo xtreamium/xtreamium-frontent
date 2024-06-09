@@ -1,7 +1,10 @@
 import http from "./http.service";
-import { Category, EPGListing } from "@/models";
+import { Category, EPGListing, Server } from "@/models";
 import { Stream } from "@/models";
 import axios, { AxiosResponse } from "axios";
+import { User } from "@/models";
+import { TOKEN_KEY } from "@/constants/storage";
+import { get } from "node_modules/axios/index.d.cts";
 
 class ApiService {
   public validateCredentials = async (
@@ -26,6 +29,16 @@ class ApiService {
       return false;
     }
   };
+
+  private getHeaders = () => {
+    return {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem(TOKEN_KEY),
+      },
+    };
+  };
   public login = async (email: string, password: string): Promise<AxiosResponse> => {
     const params = new URLSearchParams();
     params.append("grant_type", "");
@@ -39,6 +52,29 @@ class ApiService {
     });
     return response;
   };
+
+  public getUser = async (token: string): Promise<User> => {
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+
+    const response = await http.get("/user/me", requestOptions);
+    return response.data as User;
+  };
+
+  public getCurrentUser = async (): Promise<User> => {
+    const response = await http.get("/user/me", this.getHeaders());
+    return response.data as User;
+  };
+  public getUserServers = async (): Promise<Server[]> => {
+    const response = await http.get("/user/servers", this.getHeaders());
+    return response.data as Server[];
+  };
+
   public getCategories = async (): Promise<Category[]> => {
     const response = await http.get("/epg/categories");
     return response.data;

@@ -1,6 +1,16 @@
-import React from "react";
 import { Icons } from "@/components/icons";
+import { ApiService } from "@/services";
+import { useQuery } from "@tanstack/react-query";
+
 const HomePage = () => {
+  const query = useQuery({ queryKey: ["servers"], queryFn: ApiService.getUserServers });
+
+  if (query.isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (!query.isError && query.data && query.data.length > 0) {
+    return <div>We have servers</div>;
+  }
   return (
     <div className="container grid px-6 mx-auto">
       <h1 className="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
@@ -12,9 +22,7 @@ const HomePage = () => {
       >
         <div className="flex items-center">
           <Icons.alarm className="w-5 h-5 mr-2" />
-          <span>
-            Please follow the below instructions or else nothing will work!
-          </span>
+          <span>Please follow the below instructions or else nothing will work!</span>
         </div>
         <span>
           View more <span>→</span>
@@ -50,9 +58,7 @@ const HomePage = () => {
             <div
               className="block p-6 text-sm whitespace-pre"
               dangerouslySetInnerHTML={{
-                __html:
-                  import.meta.env.VITE_MPV_DEFAULTS?.replace(" ", "<br />") ??
-                  "",
+                __html: import.meta.env.VITE_MPV_DEFAULTS?.replace(" ", "<br />") ?? "",
               }}
             ></div>
             Change them in your settings
@@ -64,3 +70,6 @@ const HomePage = () => {
 };
 
 export default HomePage;
+function getUser() {
+  throw new Error("Function not implemented.");
+}

@@ -7,18 +7,29 @@ import ThemedSuspense from "@/components/themed-suspense.component";
 import { SidebarContext } from "@/context";
 import Sidebar from "@/components/sidebar";
 import LoginPage from "@/pages/login.page";
+import { ApiService } from "@/services";
+import { useQuery } from "@tanstack/react-query";
 const Layout = () => {
+  const query = useQuery({ queryKey: ["user"], queryFn: ApiService.getCurrentUser });
   const { isSidebarOpen, closeSidebar } = React.useContext(SidebarContext);
   const location = useLocation();
 
   React.useEffect(() => {
     closeSidebar();
   }, [location]);
+
+  if (query.isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (!query.data) {
+    return <LoginPage />;
+  }
+
   return (
     <div className="bg-base-100">
       <div className="size-full">
         <div className="flex overflow-hidden">
-          <Sidebar />
+          {query.data.servers && <Sidebar />}
           <div className="w-full h-full max-w-full overflow-auto main-wrapper">
             <div className="flex flex-col h-full ">
               <Header />
@@ -26,6 +37,7 @@ const Layout = () => {
                 <Suspense fallback={<ThemedSuspense />}>
                   <Routes>
                     <Route path="/" element={<HomePage />} />
+                    <Route path="/dashboard" element={<HomePage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="category/:categoryId" element={<CategoryPage />} />
                     <Route path="play/:streamId" element={<PlayerPage />} />

@@ -1,8 +1,7 @@
-import apiService from "@/services/api.service";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { StatusCodes } from "http-status-codes";
+import { useAuth } from "@/context/auth.context";
+import { Icons } from "@/components/icons";
 
 type LoginPageProps = {
   email: string;
@@ -15,66 +14,84 @@ const LoginPage: React.FC = () => {
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm<LoginPageProps>();
-  const navigate = useNavigate();
+  } = useForm<LoginPageProps>({
+    defaultValues: {
+      email: "fergal.moran+xtreamium@gmail.com",
+      password: "hackmyballz",
+    },
+  });
+  const auth = useAuth();
   const onSubmit: SubmitHandler<LoginPageProps> = async (data) => {
-    const response = await apiService.login(data.email, data.password);
-
-    if (response.status !== StatusCodes.OK) {
-      const result = response.data;
-      console.log("login.page", "result", result);
-      setError("email", { type: "manual", message: result.detail });
-      setError("password", { type: "manual", message: result.detail });
-    } else {
-      navigate("/");
-    }
+    await auth.login(data.email, data.password);
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <form
-        className="p-6 bg-white rounded shadow-md"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <h2 className="mb-4 text-2xl">Login</h2>
+    <div className="flex flex-col items-center justify-center mx-auto md:h-screen lg:py-0">
+      <h3 className="text-xl font-semibold text-center">Login to XTreamium</h3>
 
-        <div className="mb-4">
-          <label className="block mb-1" htmlFor="email">
-            Email
-          </label>
-          <input
-            className={`input input-bordered w-full ${
-              errors.email ? "input-error" : ""
-            }`}
-            id="email"
-            type="email"
-            placeholder="Enter your email"
-            {...register("email", { required: "Email is required" })}
-          />
-          {errors.email && <p className="mt-1 text-error">{errors.email.message}</p>}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Email Address</span>
+            </label>
+            <div className="flex flex-row items-center px-3 border form-control rounded-box border-base-content/20">
+              <Icons.mail className="w-4 h-4" />
+              <input
+                {...register("email", { required: "Email is required" })}
+                placeholder="Email Address"
+                className="w-full transition-all input focus:border-transparent focus:outline-0 input-sm focus:outline-offset-0"
+                name="email"
+              />
+              {errors.email && (
+                <span className="mt-1 text-sm text-error">Unknown/invalid email</span>
+              )}
+            </div>
+          </div>
+          <div className="mt-3 form-control">
+            <label className="label">
+              <span className="label-text">Password</span>
+            </label>
+            <div className="flex flex-row items-center px-3 border form-control rounded-box border-base-content/20">
+              <Icons.key className="w-4 h-4" />
+              <input
+                {...register("password", { required: "Password is required" })}
+                type="password"
+                placeholder="Password"
+                className="w-full transition-all input focus:border-transparent focus:outline-0 input-sm focus:outline-offset-0"
+                name="password"
+              />
+              <button
+                aria-label="Show/Hide password"
+                className="btn hover:bg-base-content/10 btn-xs btn-circle btn-ghost"
+              >
+                <Icons.eye className="w-4 h-4" />
+              </button>
+            </div>
+            <label className="label">
+              <span className="label-text" />
+              <a
+                className="text-xs label-text text-base-content/80"
+                href="/auth/forgot-password"
+              >
+                Forgot Password?
+              </a>
+            </label>
+          </div>
+        </div>
+        <div className="mt-6">
+          <button className="gap-2 text-base btn btn-primary btn-block">
+            <Icons.login className="w-4 h-4" />
+            Login
+          </button>
         </div>
 
-        <div className="mb-4">
-          <label className="block mb-1" htmlFor="password">
-            Password
-          </label>
-          <input
-            className={`input input-bordered w-full ${
-              errors.password ? "input-error" : ""
-            }`}
-            id="password"
-            type="password"
-            placeholder="Enter your password"
-            {...register("password", { required: "Password is required" })}
-          />
-          {errors.password && (
-            <p className="mt-1 text-error">{errors.password.message}</p>
-          )}
-        </div>
-
-        <button className="w-full btn btn-primary" type="submit">
-          Login
-        </button>
+        <p className="mt-6 text-sm text-center text-base-content/80">
+          Haven't account{" "}
+          <a className="text-primary hover:underline" href="/auth/register">
+            Create One
+          </a>
+        </p>
       </form>
     </div>
   );
