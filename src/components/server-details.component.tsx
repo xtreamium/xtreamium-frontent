@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import Loading from "./widgets/loading.component";
 import { z, ZodType } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router-dom";
 
 // type Inputs = {
 //   name: string;
@@ -16,6 +17,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 // };
 
 const ServerDetails = () => {
+  const navigate = useNavigate();
+
   const userQuery = useQuery({
     queryKey: ["user"],
     queryFn: ApiService.getCurrentUser,
@@ -54,6 +57,9 @@ const ServerDetails = () => {
       data.password,
       data.epgUrl
     );
+    if (validated) {
+      navigate("/dashboard");
+    }
   };
   return (
     <div className="w-full">
@@ -61,7 +67,6 @@ const ServerDetails = () => {
         XTream Codes Details
       </h1>
       <form onSubmit={handleSubmit(onSubmit)} autoComplete="false">
-
         <Label>
           <span>Server Name</span>
           <Input

@@ -151,7 +151,7 @@ class ApiService {
       options
     );
 
-    return response.data;
+    return response.status === StatusCodes.OK;
   };
 }
 

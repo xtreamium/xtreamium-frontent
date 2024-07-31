@@ -4,7 +4,6 @@ import React from "react";
 import { Icons } from "@/components/icons";
 import { NavLink } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Icon } from "lucide-react";
 import { ApiService } from "@/services";
 
 type ServerSelectorComponentProps = {
@@ -12,11 +11,16 @@ type ServerSelectorComponentProps = {
 };
 const ServerSelectorComponent: React.FC<ServerSelectorComponentProps> = ({ user }) => {
   const queryClient = useQueryClient();
-
   const { selectedServer, setSelectedServer } = useServerStore();
   const server = user.servers.find((s) => s.id === selectedServer);
   if (!user || !user.servers || user.servers.length === 0)
-    return <button className="btn">Add Server</button>;
+    return (
+      <NavLink to={`/server/add`}>
+        <button className="w-full opacity-50 btn btn-sm">
+          <Icons.add className="w-6 h-6" /> Add
+        </button>
+      </NavLink>
+    );
 
   const deleteServerMutation = useMutation({
     mutationFn: (serverId: number) => {
@@ -32,7 +36,7 @@ const ServerSelectorComponent: React.FC<ServerSelectorComponentProps> = ({ user 
   }
 
   return (
-    <div title="Change Theme" className="dropdown dropdown-end ">
+    <div title="Selected Server" className="dropdown dropdown-end ">
       <div
         tabIndex={0}
         onClick={() => {

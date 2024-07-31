@@ -1,7 +1,9 @@
 import React from "react";
 import { Icons } from "../icons";
+import { useAuth } from "@/context/auth.context";
 
 const ProfileDropdown: React.FC = () => {
+  const { logout } = useAuth();
   return (
     <div className="dropdown dropdown-bottom dropdown-end">
       <label
@@ -10,13 +12,14 @@ const ProfileDropdown: React.FC = () => {
       >
         <div className="flex items-center gap-2">
           <div aria-label="Avatar photo" className="avatar">
-            <Icons.avatar className="w-6 h-6" />
+            <Icons.user className="w-6 h-6" />
+            <Icons.chevronDown className="w-4 h-4" />
           </div>
         </div>
       </label>
       <ul
         tabIndex={0}
-        className="p-2 mt-4 shadow dropdown-content menu bg-base-100 rounded-box w-52"
+        className="z-50 p-2 mt-4 shadow dropdown-content menu bg-base-100 rounded-box w-52"
         role="menu"
       >
         <li>
@@ -41,7 +44,7 @@ const ProfileDropdown: React.FC = () => {
                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
               </g>
-            </svg>{" "}
+            </svg>
             My Profile
           </div>
         </li>
@@ -71,7 +74,7 @@ const ProfileDropdown: React.FC = () => {
         </li>
         <hr className="my-1 -mx-2 border-base-content/10" />
         <li>
-          <div className="text-error">
+          <button className="text-error" onClick={() => logout()}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               xlink="http://www.w3.org/1999/xlink"
@@ -92,7 +95,7 @@ const ProfileDropdown: React.FC = () => {
               />
             </svg>
             Logout
-          </div>
+          </button>
         </li>
       </ul>
     </div>

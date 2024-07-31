@@ -36,6 +36,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setToken(response.data.access_token);
         localStorage.setItem(TOKEN_KEY, response.data.access_token);
         navigate("/dashboard");
+        location.reload();
         return;
       }
       throw new Error(response.data);
@@ -48,6 +49,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setToken("");
     localStorage.removeItem(TOKEN_KEY);
     navigate("/");
+    location.reload();
   };
   const getUser = async (): Promise<User | undefined> => {
     try {

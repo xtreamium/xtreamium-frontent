@@ -14,6 +14,7 @@ import {
   Play,
   PlayCircle,
   PersonStanding,
+  UserRound,
   Airplay,
   Cast,
   Copy,
@@ -42,4 +43,5 @@ export const Icons = {
   search: Search,
   record: Disc,
   rocket: Rocket,
+  user: UserRound,
 };
