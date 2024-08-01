@@ -47,15 +47,18 @@ const ServerSelectorComponent: React.FC<ServerSelectorComponentProps> = ({ user 
         }}
         className="gap-1 normal-case btn btn-ghost"
       >
-        <span className="font-normal">{server?.name}</span>
-        <Icons.chevronDown className="w-5 h-5 fill-current opacity-60" />
+        <Icons.server className="w-5 h-5" />
+        <span className="hidden font-normal md:inline">{server?.name}</span>
+        <Icons.chevronDown className="hidden w-5 h-5 fill-current opacity-60 sm:inline-block" />
+        <span className="hidden lg:inline_notreally">{server?.name}</span>
       </div>
       <div className="dropdown-content bg-base-200 text-base-content rounded-box top-px mt-16 max-h-[calc(100vh-10rem)] w-56 overflow-y-auto border border-white/5 shadow-2xl outline outline-1 outline-black/5 z-50">
         <ul className="gap-1 menu menu-sm">
           {user.servers.map((s) => (
-            <li key={s.id} className="">
-              <button>
-                <span
+            <li>
+              <div className="flex">
+                <button
+                  title="Delete Server"
                   onClick={async () => {
                     const result = await deleteServerMutation.mutateAsync(s.id);
                     if (result) {
@@ -64,11 +67,11 @@ const ServerSelectorComponent: React.FC<ServerSelectorComponentProps> = ({ user 
                   }}
                 >
                   <Icons.delete className="w-4 h-4 text-red-500" />
-                </span>
-                <span className="font-[sans-serif]" onClick={() => _handleClick(s.id)}>
+                </button>
+                <span onClick={() => _handleClick(s.id)} className="font-[sans-serif]">
                   {s.name}
                 </span>
-              </button>
+              </div>
             </li>
           ))}
           <hr className="text-primary" />

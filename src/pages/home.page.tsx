@@ -13,17 +13,17 @@ const HomePage = () => {
   if (query.isLoading) {
     return <Loading />;
   }
-  if (!query.isError && query.data) {
-    return <div>You are logged in</div>;
-  }
+
   return (
     <div className="container grid px-6 mx-auto">
       <h1 className="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
         Welcome to xtreamium
       </h1>
       <a
-        className="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple"
-        href="https://github.com/estevanmaito/windmill-dashboard-react"
+        className="flex items-center justify-between p-4 mb-8 alert alert-info"
+        href="https://github.com/xtreamium/xtreamium-proxy"
+        target="_blank"
+        rel="noreferrer"
       >
         <div className="flex items-center">
           <Icons.alarm className="w-5 h-5 mr-2" />
@@ -37,9 +37,21 @@ const HomePage = () => {
         Proxy Setup
       </h2>
       <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-        <label className="block text-gray-700 text-md dark:text-gray-400">
+        <div role="tablist" className="tabs">
+          <a role="tab" className="tab">
+            Tab 1
+          </a>
+          <a role="tab" className="tab tab-active">
+            Tab 2
+          </a>
+          <a role="tab" className="tab">
+            Tab 3
+          </a>
+        </div>
+
+        {/* <label className="block text-gray-700 text-md dark:text-gray-400">
           <span>pip install --user xtreamium-proxy</span>
-        </label>
+        </label> */}
       </div>
       <h2 className="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
         mpv Setup

@@ -1,10 +1,9 @@
-import React, { Suspense } from "react";
-import { useLocation, Routes, Route, BrowserRouter } from "react-router-dom";
+import { Suspense } from "react";
+import { Routes, Route } from "react-router-dom";
 import Header from "@/components/header.component";
 import Main from "./main.container";
 import { CategoryPage, HomePage, PlayerPage } from "@/pages";
 import ThemedSuspense from "@/components/themed-suspense.component";
-import { SidebarContext } from "@/context";
 import Sidebar from "@/components/sidebar";
 import LoginPage from "@/pages/login.page";
 import { ApiService } from "@/services";
@@ -23,14 +22,11 @@ const Layout = () => {
     setSelectedServer(query.data.servers[0].id);
   }
 
-  if (query.isLoading) {
-    return <div>Loading...</div>;
-  }
-  if (!query.data) {
-    return <LoginPage />;
-  }
-
-  return (
+  return query.isLoading ? (
+    <div>Loading...</div>
+  ) : !query.data ? (
+    <LoginPage />
+  ) : (
     <div className="bg-base-100">
       <div className="size-full">
         <div className="flex overflow-hidden">

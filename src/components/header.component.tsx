@@ -5,7 +5,7 @@ import ThemeChanger from "./theme-changer.component";
 import ProfileDropdown from "./widgets/profile-dropdown.component";
 import ServerSelectorComponent from "./widgets/server-selecter.component";
 import { User } from "@/models";
-type HeaderProps = { user: User | undefined };
+type HeaderProps = { user: User };
 
 const Header: React.FC<HeaderProps> = ({ user }) => {
   return (
