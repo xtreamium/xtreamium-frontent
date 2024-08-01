@@ -1,7 +1,7 @@
 import React from "react";
 
 interface ISidebarProvider {
-  children: React.ReactChild;
+  children: React.ReactNode;
 }
 interface ISidebarProviderContext {
   isSidebarOpen: boolean;

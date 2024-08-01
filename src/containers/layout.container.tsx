@@ -10,14 +10,18 @@ import LoginPage from "@/pages/login.page";
 import { ApiService } from "@/services";
 import { useQuery } from "@tanstack/react-query";
 import AddServerPage from "@/pages/add-server.page";
+import useServerStore from "@/services/state/server.state";
 const Layout = () => {
-  const query = useQuery({ queryKey: ["user"], queryFn: ApiService.getCurrentUser });
-  const { isSidebarOpen, closeSidebar } = React.useContext(SidebarContext);
-  const location = useLocation();
+  const query = useQuery({
+    queryKey: ["user"],
+    queryFn: ApiService.getCurrentUser,
+    retry: false,
+  });
 
-  React.useEffect(() => {
-    closeSidebar();
-  }, [location]);
+  const { selectedServer, setSelectedServer } = useServerStore();
+  if (selectedServer === 0 && query.data?.servers) {
+    setSelectedServer(query.data.servers[0].id);
+  }
 
   if (query.isLoading) {
     return <div>Loading...</div>;
@@ -30,7 +34,7 @@ const Layout = () => {
     <div className="bg-base-100">
       <div className="size-full">
         <div className="flex overflow-hidden">
-          {query.data.servers && <Sidebar user={query.data} />}
+          {query?.data?.servers && <Sidebar user={query.data} />}
           <div className="w-full h-full max-w-full overflow-auto main-wrapper">
             <div className="flex flex-col h-full ">
               <Header user={query.data} />

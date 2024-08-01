@@ -1,37 +1,13 @@
 import React from "react";
 
-import { toast } from "react-toastify";
 import { Icons } from "./icons";
-import { SidebarContext } from "@/context";
 import ThemeChanger from "./theme-changer.component";
 import ProfileDropdown from "./widgets/profile-dropdown.component";
 import ServerSelectorComponent from "./widgets/server-selecter.component";
-import {User} from '@/models';
-type HeaderProps = { user: User };
+import { User } from "@/models";
+type HeaderProps = { user: User | undefined };
 
 const Header: React.FC<HeaderProps> = ({ user }) => {
-  const { toggleSidebar } = React.useContext(SidebarContext);
-  const [isNotificationsMenuOpen, setIsNotificationsMenuOpen] = React.useState(false);
-  const [isProfileMenuOpen, setIsProfileMenuOpen] = React.useState(false);
-
-  const _debuggles = () => {
-    toast("🦄 Wow so easy!", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  };
-  const handleNotificationsClick = () => {
-    setIsNotificationsMenuOpen(!isNotificationsMenuOpen);
-  };
-
-  const handleProfileClick = () => {
-    setIsProfileMenuOpen(!isProfileMenuOpen);
-  };
   return (
     <div className="w-full navbar">
       <div className="flex-1">

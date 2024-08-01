@@ -4,17 +4,17 @@ import { useQuery } from "@tanstack/react-query";
 import Loading from "@/components/widgets/loading.component";
 
 const HomePage = () => {
-  const query = useQuery({ queryKey: ["servers"], queryFn: ApiService.getUserServers });
+  const query = useQuery({
+    queryKey: ["servers"],
+    queryFn: ApiService.getCurrentUser,
+    retry: false,
+  });
 
   if (query.isLoading) {
     return <Loading />;
   }
-  if (!query.isError && query.data && query.data.length > 0) {
-    return query.data.map((server) => (
-      <div key={server.id}>
-        <div>{server.name}</div>
-      </div>
-    ));
+  if (!query.isError && query.data) {
+    return <div>You are logged in</div>;
   }
   return (
     <div className="container grid px-6 mx-auto">

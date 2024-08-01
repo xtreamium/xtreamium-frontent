@@ -1,5 +1,6 @@
 import * as React from "react";
 
+
 import { Helmet } from "react-helmet";
 import castContext from "./cast-context";
 import CastReceiver from "./cast-receiver";
@@ -10,7 +11,7 @@ const wait = (time: number) =>
     setTimeout(res, time);
   });
 
-function CastProvider({ children }: { children: React.ReactChild }) {
+function CastProvider({ children }: { children: React.ReactNode }) {
   const [cast, setCast] = useState<{
     castReceiver?: CastReceiver;
     castSender?: any;
